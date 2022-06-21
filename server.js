@@ -8,6 +8,10 @@ var cors = require('cors');
 var routercontainer = require('./router');
 const router = new routercontainer();
 var fs = require('fs');
+var schemas = require('./mongo.schema');
+var jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const User_Session = mongoose.model('User_Sessions', schemas.User_Session);
 
 
 function ImageMiddleware(req,res,next){
@@ -34,6 +38,51 @@ function ImageMiddleware(req,res,next){
   }
 }
 
+function Authorize_Session(req,res,next){
+    try {
+     const authHeader = req.headers.authorization;
+     const user_id = req.headers.user_id;
+         const token = authHeader.split(' ')[1];
+      if (user_id){
+         User_Session.find({user_id: user_id}).then(session=>{
+          // compare date
+          req.jwtData = jwt.verify(token, session[0].salt);
+          if (req.jwtData){
+          if (session.length >0){
+          var date =   Math.floor(Date.now());
+          var expirationDate =  new Date(session[0].expiration);
+          expirationDate=expirationDate.getTime
+          if (date > expirationDate){
+            req.authorized = {redirect:'/',authorized:false}
+          } else {
+            req.authorized = {authorized:true}
+          }
+           } else {
+             throw Error('Not Authorized ')
+           }
+          } else {
+            throw Error('Not Authorized ')
+          }
+           next()
+         }).catch(err=>{
+           console.log(err);
+          req.authorized = {redirect:'/',authorized:false}
+          next()
+        })
+      } else {
+        req.authorized = {authorized:false}
+        next();
+      }
+
+     } catch(err){
+       req.jwtData = null;
+       req.authorized = {authorized:false}
+       next()
+     }
+
+
+}
+
 //use
 
 app.use(bp.json({ limit: "50mb" }));
@@ -41,10 +90,19 @@ app.use(cors());
 app.use(express.static(path.join(__dirname,'build')));
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
+app.use(Authorize_Session)
 
 
 
+app.get('/authenticate', (req,res,next)=>{
+  console.log(req.authorized)
+  res.json(req.authorized)
+})
 
+
+app.post('/login', (req,res,next)=>{
+  router.login(req,res,next)
+})
 //static routes
 app.get('/about', (req,res,next)=>{
   res.sendFile(path.join(__dirname, 'build/index.html') );

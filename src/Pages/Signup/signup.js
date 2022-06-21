@@ -5,6 +5,7 @@ import {FormGroup} from '@zenabyss/reactformbuilder';
 import {Button,FormControl,TextField,FormHelperText} from '@mui/material'
 import './signup.scss';
 import axios from 'axios';
+import {createCookie,deleteCookie} from '../../cookie';
 function Signup(props){
 
   let location = useLocation();
@@ -74,8 +75,6 @@ function Signup(props){
       "JSXElement":FormField,
       "validator": (val,obs,core)=>{
         if (val.length >0){
-          // core.parent.refrences.username.current.update('haha');
-
           obs.next(true);
         } else {
           obs.next(false);
@@ -90,10 +89,8 @@ function Signup(props){
       "helperText":"please enteryour password",
       "JSXElement":FormField,
       "validator": (val, obs, core) => {
-          // console.log(val === core.parent.refrences.password.current.props.value)
       if (core.parent.refrences.password.current){
           if (val === core.parent.refrences.password.current.props.value) {
-          // core.parent.refrences.username.current.value;
           obs.next(true);
         } else{
           obs.next(false);
@@ -107,7 +104,9 @@ function Signup(props){
 
   }
 
-   var Submit =(event)=> {
+
+
+   var Submit = (event)=> {
     event.preventDefault();
      if (ref.current){
        var form = ref.current;
@@ -115,18 +114,19 @@ function Signup(props){
         var data = form.getData();
         delete data.passwordCheck;
         axios.post('http://127.0.0.1:8080/createUser',data).then(response=>{
-          console.log('response',response);
           form.reset();
-          //set cookie;
-          //when created auto login auth.signin
+          if (response.data.token !== undefined){
+            deleteCookie('user_session')
+            deleteCookie('user_id')
+            createCookie('user_id',response.data.user_id,2)
+            createCookie('user_session',response.data.token,2)
+          }
+          if (response.data.redirect !== undefined){
+            navigate(response.data.redirect,{ replace: true });
+          }
         })
-        // make request to server
-
       }
      }
-    // auth.signin({username,password}, () => {
-    //   navigate(from, { replace: true });
-    // });
   }
 
 

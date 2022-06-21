@@ -20,7 +20,9 @@ const User = new Schema({
 
 const User_Session = new Schema({
   user_id:{type:String, unique:true},
-  time_expired:Date
+  expiration:Date,
+  salt:String
+
 })
 
 

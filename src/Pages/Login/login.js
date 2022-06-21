@@ -4,6 +4,8 @@ import {UseAuth} from '../../authentication';
 import {FormGroup} from '@zenabyss/reactformbuilder';
 import {Button,FormControl,TextField,FormHelperText} from '@mui/material'
 import './login.scss';
+import axios from 'axios';
+import {createCookie,deleteCookie} from '../../cookie';
 
 function Login(props){
 
@@ -60,17 +62,30 @@ function Login(props){
 
   }
 
-   var handleSubmit =(event)=> {
+  var Submit = (event)=> {
     event.preventDefault();
+     if (ref.current){
+       var form = ref.current;
+      if (form.state.status === "VALID"){
+        var data = form.getData();
 
-    // let formData = new FormData(event.currentTarget);
-    // let username = formData.get("username") as string;
-    // get cookie and make requests;
-
-    auth.signin({username,password}, () => {
-      navigate(from, { replace: true });
-    });
+        axios.post('http://127.0.0.1:8080/login',data).then(response=>{
+          console.log('response',response);
+          form.reset();
+          if (response.data.token !== undefined){
+            deleteCookie('user_session')
+            deleteCookie('user_id')
+            createCookie('user_id',response.data.user_id,2)
+            createCookie('user_session',response.data.token,2)
+          }
+          if (response.data.redirect !== undefined){
+            navigate(response.data.redirect,{ replace: true });
+          }
+        })
+      }
+     }
   }
+
 
 
 return (
@@ -81,7 +96,7 @@ return (
         <div className="login-wrapper">
         <FormGroup controls={fgroup} name="login" ref={ref}  JSXContainer={FormContainer}></FormGroup>
         <Link to="/signup"><span className="signup">sign up</span></Link>
-        <div className="btn-wrapper"><Button className="login-btn" variant="contained" type="submit">Submit</Button></div>
+        <div className="btn-wrapper"><Button onClick={Submit} className="login-btn" variant="contained" type="submit">Submit</Button></div>
         </div>
     </div>
     </div>

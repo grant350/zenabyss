@@ -12,9 +12,13 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 class Router {
+  constructor(){
+    this.url = "http://127.0.0.1:8080/about";
+    this.createSession = this.createSession.bind(this);
+  }
 
   getExpiration(h){
-    return Math.floor(Date.now() / 1000) + (h*60*60*1000);
+    return Math.floor((Date.now() +(h*60*1000))) ;
   }
   getDate(){
     var today = new Date();
@@ -42,24 +46,51 @@ class Router {
   }
 
 
-  //check auth in jwt check that jwt is valid and matches salt if salt matches but token expired create new session
-  //verify userid+salt
+login(req,res,next){
+  var password = req.body.password;
+  var username = req.body.username;
+  //later can sign in with username and email
+  //later add oauth.
+  Users.find({username:username}).then(results=>{
+    if (results.length >0){
+      bcrypt.compare(password, results[0].hash, (err, result)=> {
+        if(result){
+          req.user = {};
+          req.user.salt = results[0].salt;
+          req.user.user_id = results[0].user_id;
+          this.createSession(req,res,next);
+        } else {
+         res.json({redirect:'/login'})
+        }
+      });
+
+    } else {
+      throw new Error('no users');
+    }
+  }).catch(err=>{
+
+  })
+
+}
+
+
+
   createSession(req,res,next){
 
     var user_id = req.user.user_id;
     var salt = req.user.salt
-    var expiration = this.getExpiration(2);
+    var expiration = this.getExpiration(.016);
     var payload = {
       iat: expiration,
       user_id: user_id,
       role: 'user'
     }
-    var token = jwt.sign(payload, req.user.user_id+req.user.salt);
+    var token = jwt.sign(payload, req.user.salt);
       User_Session.create({user_id:user_id,expiration:expiration,salt:salt}).then(new_session=>{
-        res.json({token:token,redirect:'/'});
+        res.json({token:token,redirect:'/',user_id:user_id});
       }).catch(err=>{
         User_Session.updateOne({user_id:user_id},{expiration:expiration}).then(new_session=>{
-          res.json({token:token,redirect:'/'});
+          res.json({token:token,redirect:'/',user_id:user_id});
         }).catch(err=>{
           console.log(err)
         })
@@ -69,9 +100,13 @@ class Router {
 
   createUser(req,res,next){
     console.log(req.body)
-    Users.findOne({username:req.body.username}).then(result=>{
+    Users.find({username:req.body.username}).then(result=>{
       //send client an error bar user exists
-      res.json({redirect:'/login',error:"user already exists"});
+      if (result.length > 0){
+        res.json({redirect:'/signup',error:"user already exists"});
+      } else {
+        throw new Error('no results')
+      }
 
     }).catch(err=>{
       var obj = Object.assign({},req.body)

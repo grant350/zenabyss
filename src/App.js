@@ -10,7 +10,6 @@ import Login from './Pages/Login/login';
 import Signup from './Pages/Signup/signup';
 import Header from './header';
 import HomePage from './Pages/HomePage/homepage';
-import FourOFour from './Pages/FourOFour';
 import {AuthProvider,UseAuth} from './authentication';
 
 function RequireAuth(props) {
@@ -71,6 +70,7 @@ var App = function ()  {
 
 
     return (
+      <AuthProvider>
 
       <div className="App">
          <Header>
@@ -85,7 +85,6 @@ var App = function ()  {
           <Tab className="hovertab" value="login"    label="login" />
         </Tabs>
          </div>
-         <AuthProvider>
 
         <div className="boxContainer">
         <Routes>
@@ -103,12 +102,13 @@ var App = function ()  {
       </Routes>
 
       </div>
-      </AuthProvider>
 
 
 
 
       </div>
+      </AuthProvider>
+
     );
   }
 
