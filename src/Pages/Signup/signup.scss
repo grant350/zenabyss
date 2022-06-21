@@ -1,0 +1,71 @@
+.signup{
+  width: 100%;
+  height:100vh;
+  // min-height: 600px;
+
+.btn-wrapper{
+width:100%;
+display: block;
+height: 40px;
+text-align: end;
+
+
+button{
+  width:130px;
+  background:orange;
+  height: 50px;
+  color: white;
+  position: relative;
+  right: 10px;
+}
+}
+.MuiButton-root{
+  margin:0px 0px!important;
+  font-size: 20px!important;
+    font-weight: 800!important;
+}
+.background-image{
+  background-image: url('../../assets/beach.jpeg');
+  background-size: cover;
+  background-position: center;
+  width:100%;
+
+  height: 100%;
+  .blackness{
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.1);
+    display:flex;
+    flex-wrap:wrap;
+  align-items: center;
+  justify-content: center;
+
+    // position: absolute;
+    // z-index: +3;
+  }
+  .login-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0px;
+    justify-content: center;
+    background: #0000006e;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    padding: 11px;
+    font-family: "Charis SIL", serif;
+    width:50%;
+  }
+
+}
+.formControl .MuiFormControl-root{
+  width:100%;
+}
+.MuiInputBase-formControl{
+  background:white!important;
+  color:black!important;
+}
+.MuiInputLabel-root{
+  color:black!important;
+}
+
+}

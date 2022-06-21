@@ -1,0 +1,150 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+ .Mui-selected {
+  color:orange!important;
+}
+.MuiTabs-indicator{
+  background-color:#eda600!important;
+  height:4px!important;
+}
+.about{
+  color:red;
+}
+.btn{
+  color: yellow!important;
+  font-size: 18px;
+  border: 1px solid black;
+  width: 90px;
+  background:rgba(0,0,30,0.5)!important;
+  &:hover {
+    background:orange!important;
+  }
+}
+.login-btn{
+  width:200px;
+
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.formControl{
+  width:auto;
+  margin:10px 0;
+  .MuiFormControl-root{
+    width:80%;
+  }
+  .MuiOutlinedInput-root {
+    min-width:200px!important;
+  }
+}
+.buttongroup{
+ .MuiButton-root{ border-color:black!important; color:black!important;}
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.MuiInputLabel-root{
+  color:rgb(255 247 1)!important;
+}
+.MuiOutlinedInput-root{
+  color:white!important;
+}
+.MuiInputLabel-root{
+  color:#ffe900!important;
+}
+
+.boxContainer{
+  width:100%;
+  display: flex;
+  flex-wrap:wrap;
+
+  .submit-container{
+    display: flex;
+    justify-content: flex-end;
+
+        .btn{
+      color: yellow;
+      font-size: 18px;
+      border: 1px solid black;
+      width: 90px;
+        }
+      }
+  .insertBox{
+    width:50%;
+
+    .wrapper{
+      margin-left:20px;
+      padding:5px;
+      margin-top:10px;
+      display:block;
+      width:100%;
+      // width:100%;
+
+  }
+  }
+  .foundRelated{
+    width:50%;
+    border-left:4px solid black;
+    box-sizing: border-box;
+    .wrapper{
+      margin-top:20px;
+    }
+  }
+
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.qty-input  .MuiInputBase-input {
+  padding: 0!important;
+  height: 33px!important;
+  text-align: center;
+
+}
+ .MuiTabs-indicatorSpan {
+  max-width: 40px;
+  width: 100%;
+  background: #635ee7;
+}
+
+.box{
+  padding:20px;
+
+}
+.MuiInputBase-formControl{
+  background: #1665c0!important;
+}
