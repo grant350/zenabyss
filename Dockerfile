@@ -4,10 +4,10 @@ WORKDIR ./zenabyss
 
 ENV PORT 8080
 RUN npm shrinkwrap
-COPY *.json ./zenabyss
+COPY *.json .
 RUN npm install --production
 # CMD ['rm','-rf',' /src']
-COPY . ./zenabyss
+COPY . .
 
 
-CMD ["node","./server.js"]
+CMD ["node","server.js"]
