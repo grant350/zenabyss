@@ -2,7 +2,7 @@ import {React,useState,useRef} from 'react';
 import {useNavigate,useLocation,Link} from "react-router-dom";
 import {UseAuth} from '../../authentication';
 import {FormGroup} from '@zenabyss/reactformbuilder';
-import {Button,FormControl,TextField,FormHelperText} from '@mui/material'
+import {Button,FormControl,TextField,FormHelperText,Box} from '@mui/material'
 import './signup.scss';
 import axios from 'axios';
 import {createCookie,deleteCookie} from '../../cookie';
@@ -19,16 +19,15 @@ function Signup(props){
   }
 
   function FormField(props){
-
     return (<FormControl style={{left: "0px", padding: 0}}>
       <FormHelperText>{props.label}</FormHelperText>
       <TextField id="filled-basic" helperText={props.helperText} InputProps={{ style: { fontSize: "10px"} }} size="small" variant="filled"  style={{borderLeft:"20px solid "+props.border, padding: 0,background:'white',borderRadius:"10px",boxSizing: "border-box"}} type={props.controlType} onChange={(e)=>{props.update(e.target.value)}} value={props.value}></TextField>
     </FormControl>
     )
-
   }
-  var username  = useState('');
-  var password  = useState('');
+
+
+  const [error_message,setError_message] = useState(null)
 
   var fgroup = {
     "username":{
@@ -38,7 +37,6 @@ function Signup(props){
       "helperText":"please enter your usersame",
       "label":"Username",
       "validator": (val,obs)=>{
-        // make req to server to check users
         if (val.length >0){
           obs.next(true);
         } else {
@@ -54,16 +52,12 @@ function Signup(props){
       "helperText":"please enter your email",
       "JSXElement":FormField,
       "validator": (val, obs, core) => {
-        // console.log('val',core.parent.refrences.password.current.props.value)
-        //   console.log(val === core.parent.refrences.password.current.props.value)
-
-        if (val.length > 6 && val.includes('@')) {
-          // core.parent.refrences.username.current.value;
+        const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (val.match(regex)) {
           obs.next(true);
         } else {
           obs.next(false);
         }
-
       }
     },
     "password":{
@@ -101,10 +95,7 @@ function Signup(props){
         }
       }
     }
-
   }
-
-
 
    var Submit = (event)=> {
     event.preventDefault();
@@ -124,6 +115,15 @@ function Signup(props){
           if (response.data.redirect !== undefined){
             navigate(response.data.redirect,{ replace: true });
           }
+          if (response.data.error){
+
+            setError_message(response.data.error)
+            setTimeout(()=>{
+              setError_message(null)
+            },4000)
+          }
+        }).catch(err=>{
+          setError_message(err)
         })
       }
      }
@@ -132,11 +132,11 @@ function Signup(props){
 
 return (
   <div className="signup">
+     {error_message?<Box sx={{ flexGrow: 1 }} className="error_message">{error_message}</Box>:null}
   <div className="background-image" >
     <div className="blackness">
-
         <div className="login-wrapper">
-        <FormGroup controls={fgroup} name="login" ref={ref}  JSXContainer={FormContainer}></FormGroup>
+        <FormGroup controls={fgroup} name="login"  ref={ref}  JSXContainer={FormContainer}></FormGroup>
         <div className="btn-wrapper"><Button className="login-btn" onClick={Submit} variant="contained" type="submit">Submit</Button></div>
         </div>
     </div>

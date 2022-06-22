@@ -3,6 +3,14 @@
   height:100vh;
   // min-height: 600px;
 
+  .error_message{
+    width:100%;
+    height:40px;
+    background:red;
+    text-align: center;
+    color:white;
+    font-size:15px;
+  }
 .btn-wrapper{
 width:100%;
 display: block;

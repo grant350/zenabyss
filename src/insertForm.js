@@ -3,6 +3,8 @@ import React from 'react';
 import {Box,FormControlLabel,FormLabel,Radio,FormControl,RadioGroup,TextField,Button} from  '@mui/material';
 import axios from 'axios';
 import AddSub from './addsub'
+import {getCookie,deleteCookie,createCookie} from './cookie';
+
 class InsertForm extends React.Component{
   constructor(props){
     super(props)
@@ -29,7 +31,8 @@ class InsertForm extends React.Component{
     this.changeQTY = this.changeQTY.bind(this);
     this.pullFromUPC = this.pullFromUPC.bind(this);
     this.showUpdate = this.showUpdate.bind(this);
-  }
+  };
+
 
   inputChange(value,name){
     if (name !== 'upc'){
@@ -99,8 +102,7 @@ class InsertForm extends React.Component{
         else if (this.state.upc.slice(0,4).includes('0778') ){
           this.setState({brand:'wet-n-wild'})
         }
-
-        axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:this.state.upc}}).then(response=>{
+        axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:this.state.upc,user_id:getCookie('user_id')},headers:{Authorization:"Bearer "+getCookie('user_session')} }).then(response=>{
 
         if (response.data === 'updated'){
           // have a  timer updated
@@ -154,24 +156,20 @@ class InsertForm extends React.Component{
     }
     var bool3 = this.state.upc.length === 12;
     if (!bool3) {
-      console.log('your upc is less than  12 and or not equal to 12')
     }
     var bool4 = this.state.brand.length > 2;
     if (!bool4) {
-      console.log('your brand length < 4')
     }
 
     var bool6 = typeof this.state.upc === "string";
     if (!bool6) {
-      console.log('your upc length is not a string')
     }
 
       if (bool && bool2 && bool3 && bool4  && bool1 && bool6) {
         var copystate = Object.assign({},this.state);
         delete copystate['showUpdateBar']
         delete copystate['updateBarUPC']
-        console.log('copystate',copystate)
-        axios.post('http://127.0.0.1:8080/insertProduct',copystate).then(response=>{
+        axios.post('http://127.0.0.1:8080/insertProduct',copystate,{ headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')} }).then(response=>{
             console.log('response',response)
             this.setState({
           upc:"",
@@ -216,7 +214,6 @@ class InsertForm extends React.Component{
     if (val < 0){
      val =0;
     }
-    console.log('decrement val',val)
 
       this.setState({quantity:val})
   };

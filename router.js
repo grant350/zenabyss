@@ -31,6 +31,7 @@ class Router {
   insertProduct(req,res,next){
       req.body.productId=uuidv4();
       req.body.date = this.getDate();
+      req.body.user_id = req.user_id
     ProductsModel.create(req.body).then(result=>{
       res.json({data:result,exists:false});
     }).catch(err=>{
@@ -47,6 +48,7 @@ class Router {
 
 
 login(req,res,next){
+
   var password = req.body.password;
   var username = req.body.username;
   //later can sign in with username and email
@@ -100,10 +102,11 @@ login(req,res,next){
 
   createUser(req,res,next){
     console.log(req.body)
-    Users.find({username:req.body.username}).then(result=>{
+    req.body.username=req.body.username.toLowerCase()
+    Users.find({username:req.body.username,email:req.body.email}).then(result=>{
       //send client an error bar user exists
       if (result.length > 0){
-        res.json({redirect:'/signup',error:"user already exists"});
+        res.json({redirect:'/signup',error:"user already exists with same username or email address please use another"});
       } else {
         throw new Error('no results')
       }
@@ -131,18 +134,20 @@ login(req,res,next){
 
 
 searchProducts(req,res,next){
+
+  console.log(req.user_id)
   new Promise( (resolve,reject)=>{
     var promises=[];
-    promises.push(ProductsModel.find({ upc: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
+    promises.push(ProductsModel.find({ user_id: req.user_id, upc: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
         return results;
      }));
-     promises.push(ProductsModel.find({ title: new RegExp("^.*" + req.query.query.toLowerCase(), "i")  }).then((results)=>{
+     promises.push(ProductsModel.find({ user_id: req.user_id, title: new RegExp("^.*" + req.query.query.toLowerCase(), "i")  }).then((results)=>{
       return results;
     }));
-     promises.push(ProductsModel.find({ model: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
+     promises.push(ProductsModel.find({ user_id: req.user_id, model: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
          return results;
      }));
-     promises.push(ProductsModel.find({ BIN: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
+     promises.push(ProductsModel.find({ user_id: req.user_id, BIN: new RegExp('.*' + req.query.query + '.*')}).then((results)=>{
        return results
      }));
      resolve(promises)
@@ -190,13 +195,13 @@ insertOrder(req,res,next){
     console.log('product',product);
     return ProductsModel.find({upc:product.upc}).then(result=>{
       var mongoProduct=result[0];
-
+//.select({ "name": 1, "_id": 0})
       console.log(product.quantity)
       var qty = mongoProduct.quantity - product.quantity;
 
       console.log('qty',qty);
       if (qty >=0){
-       return ProductsModel.updateOne({upc:product.upc},{"$set": {quantity:qty}})
+       return ProductsModel.updateOne({ user_id: req.user_id, upc:product.upc},{"$set": {quantity:qty}})
       } else {
         throw new Error('too little qty')
       }

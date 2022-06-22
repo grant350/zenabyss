@@ -38,47 +38,41 @@ function ImageMiddleware(req,res,next){
   }
 }
 
-function Authorize_Session(req,res,next){
-    try {
+var Authorize_Session = (req,res,next)=>{
+
      const authHeader = req.headers.authorization;
-     const user_id = req.headers.user_id;
-         const token = authHeader.split(' ')[1];
-      if (user_id){
-         User_Session.find({user_id: user_id}).then(session=>{
-          // compare date
+     var token = null
+     try {
+      token = authHeader.split(' ')[1];
+     } catch {
+      token = null
+     }
+     req.user_id = req.query.user_id;
+      if (req.query.user_id !== undefined && token !== null){
+         User_Session.find({user_id: req.query.user_id }).then(session=>{
           req.jwtData = jwt.verify(token, session[0].salt);
           if (req.jwtData){
-          if (session.length >0){
-          var date =   Math.floor(Date.now());
-          var expirationDate =  new Date(session[0].expiration);
-          expirationDate=expirationDate.getTime
-          if (date > expirationDate){
-            req.authorized = {redirect:'/',authorized:false}
+            if (session.length >0){
+              var date =   Math.floor(Date.now());
+              var expirationDate =  new Date(session[0].expiration);
+              expirationDate=expirationDate.getTime
+              if (date > expirationDate){
+                req.authorized = {redirect:'/login',authorized:false}
+              } else {
+                req.authorized = {authorized:true,redirect:'/'}
+              }
+            }
           } else {
-            req.authorized = {authorized:true}
+            req.authorized = {redirect:'/login',authorized:false}
           }
-           } else {
-             throw Error('Not Authorized ')
-           }
-          } else {
-            throw Error('Not Authorized ')
-          }
-           next()
-         }).catch(err=>{
-           console.log(err);
-          req.authorized = {redirect:'/',authorized:false}
           next()
-        })
+
+         })
       } else {
-        req.authorized = {authorized:false}
-        next();
+        req.authorized = {authorized:false,redirect:'/login'}
+        next()
       }
 
-     } catch(err){
-       req.jwtData = null;
-       req.authorized = {authorized:false}
-       next()
-     }
 
 
 }
@@ -95,7 +89,6 @@ app.use(Authorize_Session)
 
 
 app.get('/authenticate', (req,res,next)=>{
-  console.log(req.authorized)
   res.json(req.authorized)
 })
 
@@ -135,6 +128,7 @@ app.post('/insertOrder', (req,res,next)=>{
   router.insertOrder(req,res,next)
 })
 app.get('/searchProducts', (req,res,next)=>{
+
   router.searchProducts(req,res,next)
 })
 

@@ -9,14 +9,19 @@ const [isLoggedin, setLoggedin] = useState(false);
 let navigate = useNavigate();
 
 useEffect(()=>{
-  axios.get('http://127.0.0.1:8080/authenticate',{headers:{ user_id:getCookie('user_id'),Authorization:'Bearer '+getCookie('user_session')}}).then(response=>{
+  axios.get('http://127.0.0.1:8080/authenticate',{params:{user_id:getCookie('user_id')}, headers:{ Authorization:'Bearer '+getCookie('user_session')}}).then(response=>{
     if (response.data.token){
       deleteCookie('user_session');
+      deleteCookie('user_id');
+
       createCookie('user_session',response.data.token,2);
     }
     if (response.data.authorized){
       setLoggedin(true);
     } else {
+      deleteCookie('user_session');
+      deleteCookie('user_id');
+
       setLoggedin(false);
     }
 

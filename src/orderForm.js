@@ -12,6 +12,7 @@ import axios from 'axios'
 import {
   ImageInput
 } from '@zenabyss/components';
+import {getCookie,deleteCookie,createCookie} from './cookie'
 
 class OrderForm extends React.Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class OrderForm extends React.Component {
 
       var formvalue = this.myRef.current.getData();
       console.log('formv', formvalue)
-      axios.post('http://127.0.0.1:8080/insertOrder', formvalue).then(response => {
+      axios.post('http://127.0.0.1:8080/insertOrder', formvalue,{headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')}}).then(response => {
         console.log('response', response)
         this.myRef.current.reset();
       }).catch(err => {

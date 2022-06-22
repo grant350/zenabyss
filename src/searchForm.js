@@ -3,6 +3,7 @@ import React from 'react';
 import {Box,List,FormLabel,ListItem,ListItemAvatar,Avatar,ListItemText,TextField,Button,Typography} from  '@mui/material';
 import axios from 'axios';
 import AddSub from './addsub'
+import {getCookie,deleteCookie,createCookie} from './cookie'
 
 class SearchForm extends React.Component{
   constructor(props){
@@ -15,10 +16,9 @@ class SearchForm extends React.Component{
   }
 
 
-
    search(e){
     var val = e.target.value;
-     axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:val}}).then(response=>{
+     axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:val,user_id:getCookie('user_id')},headers:{token:"Bearer "+ getCookie('user_id')} }).then(response=>{
       console.log(response.data)
       this.setState({items:response.data.data})
      })
