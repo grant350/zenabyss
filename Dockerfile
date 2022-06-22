@@ -1,13 +1,13 @@
 FROM node:17.7.2
 
-WORKDIR .
+WORKDIR ./zenabyss
 
 ENV PORT 8080
 RUN npm shrinkwrap
-COPY *.json .
+COPY *.json ./zenabyss
 RUN npm install --production
 # CMD ['rm','-rf',' /src']
-COPY . .
+COPY . ./zenabyss
 
 
-CMD ["node","server.js"]
+CMD ["node","./server.js"]
