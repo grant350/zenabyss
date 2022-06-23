@@ -15,8 +15,7 @@ function getCookie(name) {
 var deleteCookie = ( name )=> {
   if( getCookie( name ) ) {
     document.cookie = name + "=" +
-      ";path=/"+";domain="+'localhost' +
-      ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+      ";path=/" + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
   }
 }
 
