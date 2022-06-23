@@ -102,7 +102,7 @@ class InsertForm extends React.Component{
         else if (this.state.upc.slice(0,4).includes('0778') ){
           this.setState({brand:'wet-n-wild'})
         }
-        axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:this.state.upc,user_id:getCookie('user_id')},headers:{Authorization:"Bearer "+getCookie('user_session')} }).then(response=>{
+        axios.get('/searchProducts',{params:{query:this.state.upc,user_id:getCookie('user_id')},headers:{Authorization:"Bearer "+getCookie('user_session')} }).then(response=>{
 
         if (response.data === 'updated'){
           // have a  timer updated
@@ -169,7 +169,7 @@ class InsertForm extends React.Component{
         var copystate = Object.assign({},this.state);
         delete copystate['showUpdateBar']
         delete copystate['updateBarUPC']
-        axios.post('http://127.0.0.1:8080/insertProduct',copystate,{ headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')} }).then(response=>{
+        axios.post('/insertProduct',copystate,{ headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')} }).then(response=>{
             console.log('response',response)
             this.setState({
           upc:"",

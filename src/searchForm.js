@@ -18,7 +18,7 @@ class SearchForm extends React.Component{
 
    search(e){
     var val = e.target.value;
-     axios.get('http://127.0.0.1:8080/searchProducts',{params:{query:val,user_id:getCookie('user_id')},headers:{token:"Bearer "+ getCookie('user_id')} }).then(response=>{
+     axios.get('/searchProducts',{params:{query:val,user_id:getCookie('user_id')},headers:{token:"Bearer "+ getCookie('user_id')} }).then(response=>{
       console.log(response.data)
       this.setState({items:response.data.data})
      })

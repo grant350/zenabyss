@@ -104,7 +104,7 @@ function Signup(props){
       if (form.state.status === "VALID"){
         var data = form.getData();
         delete data.passwordCheck;
-        axios.post('http://127.0.0.1:8080/createUser',data).then(response=>{
+        axios.post('/createUser',data).then(response=>{
           form.reset();
           if (response.data.token !== undefined){
             deleteCookie('user_session')

@@ -70,7 +70,7 @@ function Login(props){
         var data = form.getData();
         form.reset();
 
-        axios.post('http://127.0.0.1:8080/login',data).then(response=>{
+        axios.post('/login',data).then(response=>{
           console.log('response',response);
           if (response.data.token !== undefined){
             deleteCookie('user_session')

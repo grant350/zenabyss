@@ -30,7 +30,7 @@ class OrderForm extends React.Component {
 
       var formvalue = this.myRef.current.getData();
       console.log('formv', formvalue)
-      axios.post('http://127.0.0.1:8080/insertOrder', formvalue,{headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')}}).then(response => {
+      axios.post('/insertOrder', formvalue,{headers:{Authorization:"Bearer "+getCookie('user_session')},params:{user_id:getCookie('user_id')}}).then(response => {
         console.log('response', response)
         this.myRef.current.reset();
       }).catch(err => {
@@ -179,7 +179,7 @@ class OrderForm extends React.Component {
                   if (value.length === 12) {
 
 
-                    axios.get('http://127.0.0.1:8080/searchProducts', {
+                    axios.get('/searchProducts', {
                       params: {
                         query: value
                       }
