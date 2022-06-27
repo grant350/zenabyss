@@ -1,0 +1,79 @@
+# name: CI to Docker Hub
+
+# on:
+#   push:
+#     branches: [ master ]
+
+#     jobs:
+
+#   build:
+#     runs-on: linux-latest
+
+# steps:
+#       - name: Check Out Repo
+#         uses: actions/checkout@v2
+
+#       - name: Login to Docker Hub
+#         uses: docker/login-action@v1
+#         with:
+#           username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+#       - name: Set up Docker Buildx
+#         id: buildx
+#         uses: docker/setup-buildx-action@v1
+
+#       - name: Build and push
+#         id: docker_build
+#         uses: docker/build-push-action@v2
+#         with:
+#           context: ./
+#           file: ./Dockerfile
+#           push: true
+#           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+
+#       - name: Image digest
+#         run: echo ${{ steps.docker_build.outputs.digest }}
+
+#         name: Node.js CI
+#        on:
+#   workflow_call:
+#     secrets:
+#       access-token:
+#         description: 'A token passed from the caller workflow'
+#         required: false
+
+# jobs:
+#   pass-secret-to-action:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Pass the received secret to an action
+#         uses: ./.github/actions/my-action
+#         with:
+#           token: ${{ secrets.access-token }}
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: linux-latest
+
+    strategy:
+      matrix:
+        version: [17.x]
+
+steps:
+   - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/checkout@v3
+
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.version }}
+      - run: npm install
+      - run: npm run build --if-present
+      - run: npm test

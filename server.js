@@ -50,6 +50,7 @@ var Authorize_Session = (req,res,next)=>{
      req.user_id = req.query.user_id;
       if (req.query.user_id !== undefined && token !== null){
          User_Session.find({user_id: req.query.user_id }).then(session=>{
+           console.log(session)
           req.jwtData = jwt.verify(token, session[0].salt);
           if (req.jwtData){
             if (session.length >0){

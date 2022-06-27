@@ -13,7 +13,6 @@ useEffect(()=>{
     if (response.data.token){
       deleteCookie('user_session');
       deleteCookie('user_id');
-
       createCookie('user_session',response.data.token,2);
     }
     if (response.data.authorized){
@@ -21,12 +20,9 @@ useEffect(()=>{
     } else {
       deleteCookie('user_session');
       deleteCookie('user_id');
-
       setLoggedin(false);
     }
-
 })
-
 })
 
 return (

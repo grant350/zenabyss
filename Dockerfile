@@ -5,11 +5,9 @@ WORKDIR ./zenabyss
 ENV PORT 8080
 RUN npm shrinkwrap
 COPY *.json .
-COPY *.env .
+# COPY *.env .
 RUN npm install --production
-# CMD ['rm','-rf',' /src']
-# RUN "cat password=Iphone!1 > ./.env "
-COPY . .
 
+COPY . .
 
 CMD ["node","./server.js"]

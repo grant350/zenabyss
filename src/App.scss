@@ -6,21 +6,42 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.logo{
+  width: 44px;
+  height: 80%;
+  border-radius: 10px;
+  margin-right: 15px;
+}
 
+.tab-ct{
+  background:#B0A150;
+  color:white!important;
+  .MuiTab-textColorPrimary{
+    color:white;
+  }
+  .Mui-selected {
+    color:white!important;
+    background-color: rgba(149,135,62,.66) !important;
+  }
+  .MuiTabs-indicator{
+    background-color:#BE8543!important;
+    height:4px!important;
+  }
+}
+
+header{
+  background-color:#BE8543!important;
+  height: 50px;
+  .MuiTypography-h6 {
+    height: 27%!important;
+  }
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
- .Mui-selected {
-  color:orange!important;
-}
-.MuiTabs-indicator{
-  background-color:#eda600!important;
-  height:4px!important;
-}
-.about{
-  color:red;
-}
+
+
 .btn{
   color: yellow!important;
   font-size: 18px;
@@ -96,6 +117,7 @@ code {
 
   }
   }
+
   .foundRelated{
     width:50%;
     border-left:4px solid black;
@@ -138,7 +160,7 @@ code {
  .MuiTabs-indicatorSpan {
   max-width: 40px;
   width: 100%;
-  background: #635ee7;
+  background: #BE8543;
 }
 
 .box{
@@ -146,5 +168,32 @@ code {
 
 }
 .MuiInputBase-formControl{
-  background: #1665c0!important;
+  background: #BE8543!important;
 }
+
+/* Iphones under 500px  */
+@media only screen and (max-width: 500px) {
+.tab-ct{
+  display:none;
+}
+
+.logo{
+  width: 38px;
+    height: 70%;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+.logoName{
+  display:none;
+}
+
+
+}
+
+// /* Ipda under 900px above 500px  */
+// @media only screen and (max-width: 500px) {
+//   // .tab-ct{
+//   //   display:none;
+//   // }
+
+//   }
