@@ -171,6 +171,26 @@ code {
   background: #BE8543!important;
 }
 
+
+
+
+.dropdown-ct {
+
+  width:100%; height:auto;
+
+.MuiPaper-root {
+  width:100%;
+}
+  .MuiMenuItem-gutters{
+    border-bottom: 1px solid white;
+    &:hover{
+      background: #b2d01559;
+    }
+   }
+
+}
+
+
 /* Iphones under 500px  */
 @media only screen and (max-width: 500px) {
 .tab-ct{
@@ -189,11 +209,9 @@ code {
 
 
 }
+@media only screen and (min-width: 500px) {
+  .dropdown-ct{
+    display:none!important;
 
-// /* Ipda under 900px above 500px  */
-// @media only screen and (max-width: 500px) {
-//   // .tab-ct{
-//   //   display:none;
-//   // }
-
-//   }
+  }
+}
