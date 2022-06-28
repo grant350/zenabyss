@@ -178,6 +178,10 @@ code {
 
   width:100%; height:auto;
 
+  .MuiList-padding{
+    background:#9cac33ad!important;
+    padding:0px!important;
+  }
 .MuiPaper-root {
   width:100%;
 }
@@ -193,6 +197,28 @@ code {
 
 /* Iphones under 500px  */
 @media only screen and (max-width: 500px) {
+
+  .about .backgroundtop{
+    width:100%!important;
+    height: 176px!important;
+    background-attachment: inherit!important;
+  }
+
+  .profile-column{
+    top: -13%!important;
+    left: 5%;
+    font-size: 13px;
+
+    .MuiAvatar-root{
+
+      width: 100px;
+      height: 100px;
+
+
+    }
+  }
+
+
 .tab-ct{
   display:none;
 }

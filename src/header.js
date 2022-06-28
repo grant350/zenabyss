@@ -54,7 +54,7 @@ var Header = function(props){
 
 {auth.isLoggedin? <span onClick={logout} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div"> Logout</span>:<span onClick={login} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div">Login</span>}
         </Toolbar>
-          {navOpen? <DropDownMenu></DropDownMenu>: null}
+          {navOpen? <DropDownMenu setNav={setNav}> </DropDownMenu>: null}
       </AppBar>
 
   )
