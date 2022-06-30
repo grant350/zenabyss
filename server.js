@@ -88,6 +88,10 @@ app.set('view engine', 'pug')
 app.use(Authorize_Session)
 
 
+app.post('/contact', (req,res,next)=>{
+  router.contact(req,res,next)
+})
+
 
 app.get('/authenticate', (req,res,next)=>{
   res.json(req.authorized)
@@ -99,6 +103,9 @@ app.post('/login', (req,res,next)=>{
 })
 //static routes
 app.get('/about', (req,res,next)=>{
+  res.sendFile(path.join(__dirname, 'build/index.html') );
+})
+app.get('/contact', (req,res,next)=>{
   res.sendFile(path.join(__dirname, 'build/index.html') );
 })
 app.get('/insert/order', (req,res,next)=>{
@@ -114,7 +121,9 @@ app.get('/signup', (req,res,next)=>{
   res.sendFile(path.join(__dirname, 'build/index.html') );
 })
 
-
+app.get('/profile', (req,res,next)=>{
+  router.getProfileHTML(req,res,next)
+})
 
 
 app.post('/createUser', (req,res,next)=>{

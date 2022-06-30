@@ -4,12 +4,15 @@ const ProductsModel = mongoose.model('products', schemas.Products);
 const OrdersModel = mongoose.model('orders', schemas.Orders);
 const Users = mongoose.model('Users', schemas.User);
 const User_Session = mongoose.model('User_Sessions', schemas.User_Session);
+const puppeteer = require('puppeteer');
 
 const { v4: uuidv4 } = require('uuid');
 var fs = require('fs');
 var path = require('path')
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+var mailer = require('./mailer_util');
+
 
 class Router {
   constructor(){
@@ -218,15 +221,18 @@ Promise.all(promises).then(updatedProducts=>{
   console.log(err)
   res.status(500).send('cant remove inventory too little to spare')
 })
-  // OrdersModel.create(req.body).then(response=>{
-  //   console.log('was created');
-  //   res.send('success')
-  // }).catch(err=>{
-  //   res.status(500).send(err)
-  // })
-}
-
 
 }
 
+
+contact(req,res,next){
+
+
+var data = req.body;
+
+mailer.main(data.message,data.fullname,data.email,'welcometoreality2808@gamil.com')
+
+
+}
+}
 module.exports = Router;

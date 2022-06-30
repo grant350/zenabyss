@@ -31,7 +31,7 @@ body {
 
 header{
   background-color:#BE8543!important;
-  height: 50px;
+  // height: 50px;
   .MuiTypography-h6 {
     height: 27%!important;
   }
@@ -79,13 +79,13 @@ code {
   }
 }
 .MuiInputLabel-root{
-  color:rgb(255 247 1)!important;
+  // color:rgb(255 247 1)!important;
 }
 .MuiOutlinedInput-root{
   color:white!important;
 }
 .MuiInputLabel-root{
-  color:#ffe900!important;
+  // color:#ffe900!important;
 }
 
 .boxContainer{
@@ -168,7 +168,7 @@ code {
 
 }
 .MuiInputBase-formControl{
-  background: #BE8543!important;
+  background: #b27b3c4a!important;
 }
 
 
@@ -176,14 +176,18 @@ code {
 
 .dropdown-ct {
 
-  width:100%; height:auto;
-
+  width:100%;
+  top:50px;
+  height: auto;
+    position: absolute;
+    z-index: +333;
   .MuiList-padding{
     background:#9cac33ad!important;
     padding:0px!important;
   }
 .MuiPaper-root {
   width:100%;
+  background:rgb(196,141,82,77%)!important;
 }
   .MuiMenuItem-gutters{
     border-bottom: 1px solid white;
@@ -197,7 +201,9 @@ code {
 
 /* Iphones under 500px  */
 @media only screen and (max-width: 500px) {
-
+  .MuiFormControl-root{
+    width: 90%!important;
+  }
   .about .backgroundtop{
     width:100%!important;
     height: 176px!important;
@@ -208,13 +214,9 @@ code {
     top: -13%!important;
     left: 5%;
     font-size: 13px;
-
     .MuiAvatar-root{
-
       width: 100px;
       height: 100px;
-
-
     }
   }
 

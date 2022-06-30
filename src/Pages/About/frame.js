@@ -6,8 +6,16 @@ const Frame = function (props){
 
 
 return (
-  <div className="frame">
-  </div>);
+  <div className="frame-ct">
+    <span className="bold center" style={{display:'block',width:'100%'}} > {props.text}</span>
+    <object style={{width:'80%', height:'500px'}} data={props.url} type="application/pdf">
+  <embed src={props.url} type="application/pdf" />
+</object>
+    {/* <iframe title="profile" src={props.url} className="frame">
+    </iframe> */}
+  </div>
+
+  );
 
 
 }
