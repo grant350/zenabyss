@@ -14,7 +14,6 @@ import json
 SCOPES = ['https://mail.google.com']
 
 def main(data):
-    print(data['email'])
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -31,7 +30,7 @@ def main(data):
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('token.json', 'w',encoding='utf-8') as token:
             token.write(creds.to_json())
 
     try:
@@ -64,4 +63,4 @@ def main(data):
     return send_message
 
 if __name__ == '__main__':
-    main()
+    main(None)

@@ -4,7 +4,7 @@ var axios = require('axios')
 
 async function main({...json}) {
   //make call to python server to send email.
-
-  axios.post('http://127.0.0.1:2400/emailserver',json)
+  axios.post('/emailserver',json)
+  //nginx when /emailserver pull from 2400 server and call it
 }
 module.exports.main = main

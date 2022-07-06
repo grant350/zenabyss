@@ -1,22 +1,24 @@
-import socketserver
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import simplejson as json
 import time
+import simplejson as json
 from mailerTemplate import main
-# print(main('my data'))
+
 class MyHandler(BaseHTTPRequestHandler):
-    responseBody=''
+    """this is where business starts"""
+    response_body=''
     status=500
-    errorBody=""
+    error_body=""
     def do_HEAD(self):
         self.send_response(self.status)
         self.send_header('Accept','application/json')
         self.send_header("Content-type", "application/json")
         self.end_headers()
 
-    def sendResponse(self):
+    def send_mainresponse(self):
+        """is a helper method for sending response and writing body"""
         self.send_response(self.status)
-        self.wfile.write(bytes(self.responseBody, "utf-8"))
+        self.wfile.write(bytes(self.response_body, "utf-8"))
 
     def do_POST(self):
         if self.path == '/emailserver':
@@ -24,31 +26,26 @@ class MyHandler(BaseHTTPRequestHandler):
             try:
                 postdata = json.loads(self.rfile.read(int(self.headers.get('content-length'))))
                 # print(json.dumps(postdata))
-                if (main(postdata) == None):
+                if main(postdata) is None:
                     self.status = 500
                 else:
                     self.status = 200
-            except:
+            except ValueError:
                 self.status=500
-                self.errorBody = "response could not go through postdata is empty"
+                self.error_body = "response could not go through postdata is empty"
             # send body json out
-            self.responseBody = json.dumps({"status":self.status,"date":time.time(),"error":self.errorBody})
-            self.sendResponse()
+            self.response_body = json.dumps({"status":self.status,"date":time.time(),"error":self.error_body})
+            self.send_mainresponse()
         else:
             self.send_response(400)
 
 httpd = HTTPServer(("127.0.0.1", 2400), MyHandler)
 
-def StoppableHTTPServer(self):
+def stoppable_http_server(self):
+    """ to start and stop server """
     try:
         self.serve_forever()
     except KeyboardInterrupt:
         print('Exit server')
-        # self.server_close()
-        pass
-    except Error:
-        pass
-    finally:
-        # Clean-up server (close socket, etc.)
         self.server_close()
-StoppableHTTPServer(httpd)
+stoppable_http_server(httpd)
