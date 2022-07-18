@@ -1,9 +1,9 @@
 # content of test_class.py
 import collections
 try:
-    collectionsAbc = collections.abc
+    collections = collections.abc
 except AttributeError:
-    collectionsAbc = collections
+    collections = collections
 
 class TestClass:
     def test_one(self):
