@@ -1,9 +1,7 @@
 name: zenabyss
 
-on:
-  push:
-    branches:
-      - '*'   # includes all
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,14 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
+      working-directory: ./pythonServer
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Change Directory
-      run: cd pythonServer
     - name: Install Dependencies
+      working-directory: ./pythonServer
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      working-directory: ./pythonServer
       run: pytest -q ./py_test/*
