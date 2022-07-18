@@ -18,7 +18,7 @@ return (
 
       <ProfileImage></ProfileImage>
       <ProfileDescription></ProfileDescription>
-  <Frame url={'/Grant_Mitchell_Resume_1.2.pdf'} text={'My resume'}></Frame>
+  <Frame url='resume.pdf' text={'My resume'}></Frame>
     </div>
   </div>);
 

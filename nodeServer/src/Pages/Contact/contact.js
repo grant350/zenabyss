@@ -135,15 +135,17 @@ const Contact = function (props){
 function submit(){
   if(ref.current.isValid()){
     var data = ref.current.getData();
-    axios.post('/contact',data).then(response=>{
+    axios.post('/emailserver',data).then(response=>{
         ref.current.reset();
-          setMessage('message has been sent')
-          setBarColor('green')
+        setMessage('message has been sent')
+        setBarColor('green')
     }).catch(err=>{
       console.log(err)
       setMessage('there was an error with the info you provided')
       setBarColor('red')
     })
+  } else {
+    console.log('form invalid')
   }
 }
 

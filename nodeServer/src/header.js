@@ -41,12 +41,11 @@ var Header = function(props){
           <IconButton onClick={(e)=>{toggelNav()}} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-         <img className="logo" alt="logo" onClick={home} src="/favicon.png"/>
+         <img className="logo" alt="logo" onClick={home} src="/logo.png"/>
           <Typography className="logoName" variant="h6" color="inherit" component="div">
             Zenabyss
           </Typography>
-
-{auth.isLoggedin? <span onClick={logout} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div"> Logout</span>:<span onClick={login} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div">Login</span>}
+          {auth.isLoggedin? <span onClick={logout} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div"> Logout</span>:<span onClick={login} style={{position:'absolute',right:'30px',cursor:'grab'}} variant="h6" color="inherit" component="div">Login</span>}
         </Toolbar>
           {navOpen? <DropDownMenu setNav={setNav}> </DropDownMenu>: null}
       </AppBar>

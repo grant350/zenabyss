@@ -88,10 +88,14 @@ app.set('view engine', 'pug')
 app.use(Authorize_Session)
 
 
-app.post('/contact', (req,res,next)=>{
+app.post('/emailserver', (req,res,next)=>{
+  console.log('sending request to util')
   router.contact(req,res,next)
 })
 
+app.get('/contact', (req,res,next)=>{
+  res.sendFile(path.join(__dirname, 'build/index.html') );
+})
 
 app.get('/authenticate', (req,res,next)=>{
   res.json(req.authorized)
@@ -105,9 +109,7 @@ app.post('/login', (req,res,next)=>{
 app.get('/about', (req,res,next)=>{
   res.sendFile(path.join(__dirname, 'build/index.html') );
 })
-app.get('/about', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
-})
+
 app.get('/insert/order', (req,res,next)=>{
   res.sendFile(path.join(__dirname, 'build/index.html') );
 })

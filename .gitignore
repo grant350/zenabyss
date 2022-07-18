@@ -5,12 +5,19 @@
 /.pnp
 .pnp.js
 
+
+#private files
+Resume.pdf
+profile_background.jpg
+profile.jpg
+logo.ico
+logo.png
+main_photo.jpg
 # testing
 /coverage
 
 # production
 *env
-/build
 *.png
 # misc
 .DS_Store
@@ -26,3 +33,4 @@ __pycache__
 *token*
 *credentials*
 __pycache__
+build

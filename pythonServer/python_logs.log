@@ -1,0 +1,96 @@
+Sat Jul 16 22:58:07 2022: client_address:('127.0.0.1', 54779) path:/emailserver method: POST
+Sat Jul 16 22:58:07 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 22:58:07 2022: postcontents: b'{"message":"ionefw","fullname":"gegeio","email":"owifn@gmail.com","phone":"N/A"}'
+Sat Jul 16 22:58:07 2022: postdata{'message': 'ionefw', 'fullname': 'gegeio', 'email': 'owifn@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 22:58:07 2022: status:200 responseBody:{"status": 200, "date": 1658037487.945987, "error": ""}
+Sat Jul 16 22:59:31 2022: client_address:('127.0.0.1', 55148) path:/emailserver method: POST
+Sat Jul 16 22:59:31 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 22:59:31 2022: postcontents: b'{"message":"iofwnfwe","fullname":"fwfwe","email":"wefwf@gmail.com","phone":"N/A"}'
+Sat Jul 16 22:59:31 2022: postdata{'message': 'iofwnfwe', 'fullname': 'fwfwe', 'email': 'wefwf@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 22:59:31 2022: in main 
+Sat Jul 16 22:59:32 2022: <smtplib.SMTP_SSL object at 0x7fa3d7e7bb20>
+Sat Jul 16 22:59:32 2022: <smtplib.SMTP_SSL object at 0x7fa3d7e7bb20>
+Sat Jul 16 22:59:32 2022: global vars set
+Sat Jul 16 22:59:33 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sat Jul 16 22:59:33 2022: sucess main fn
+Sat Jul 16 22:59:33 2022: status:200 responseBody:{"status": 200, "date": 1658037573.574771, "error": ""}
+Sat Jul 16 23:00:47 2022: client_address:('127.0.0.1', 55553) path:/emailserver method: POST
+Sat Jul 16 23:00:47 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 23:00:47 2022: postcontents: b'{"message":"ionwfe","fullname":"wefwfew","email":"wefwfe@gmail.com","phone":"N/A"}'
+Sat Jul 16 23:00:47 2022: postdata{'message': 'ionwfe', 'fullname': 'wefwfew', 'email': 'wefwfe@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 23:00:47 2022: in main 
+Sat Jul 16 23:00:48 2022: <smtplib.SMTP_SSL object at 0x7fc3856c1cd0>
+Sat Jul 16 23:00:48 2022: <smtplib.SMTP_SSL object at 0x7fc3856c1cd0>
+Sat Jul 16 23:00:48 2022: global vars set
+Sat Jul 16 23:00:49 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sat Jul 16 23:00:49 2022: sucess main fn
+Sat Jul 16 23:00:49 2022: status:200 responseBody:{"status": 200, "date": 1658037649.1450691, "error": ""}
+Sat Jul 16 23:01:34 2022: client_address:('127.0.0.1', 55792) path:/emailserver method: POST
+Sat Jul 16 23:01:34 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 23:01:34 2022: postcontents: b'{"message":"ionfwef","fullname":"fwiofnwe","email":"oiwnfeoin@gmail.com","phone":"N/A"}'
+Sat Jul 16 23:01:34 2022: postdata{'message': 'ionfwef', 'fullname': 'fwiofnwe', 'email': 'oiwnfeoin@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 23:01:34 2022: in main 
+Sat Jul 16 23:01:34 2022: <smtplib.SMTP_SSL object at 0x7fc531e93cd0>
+Sat Jul 16 23:01:34 2022: <smtplib.SMTP_SSL object at 0x7fc531e93cd0>
+Sat Jul 16 23:01:34 2022: global vars set
+Sat Jul 16 23:01:35 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sat Jul 16 23:01:35 2022: sucess main fn
+Sat Jul 16 23:01:35 2022: status:200 responseBody:{"status": 200, "date": 1658037695.4808772, "error": ""}
+Sat Jul 16 23:11:32 2022: client_address:('127.0.0.1', 58550) path:/emailserver method: POST
+Sat Jul 16 23:11:32 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 23:11:32 2022: postcontents: b'{"message":"ionwefwe","fullname":"grant","email":"infow@gmail.com","phone":"N/A"}'
+Sat Jul 16 23:11:32 2022: postdata{'message': 'ionwefwe', 'fullname': 'grant', 'email': 'infow@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 23:11:33 2022: <smtplib.SMTP_SSL object at 0x7fcbd2e916a0>
+Sat Jul 16 23:11:33 2022: <smtplib.SMTP_SSL object at 0x7fcbd2e916a0>
+Sat Jul 16 23:11:33 2022: global vars set
+Sat Jul 16 23:11:34 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sat Jul 16 23:11:34 2022: sucess main fn
+Sat Jul 16 23:11:34 2022: status:200 responseBody:{"status": 200, "date": 1658038294.2360342, "error": ""}
+Sat Jul 16 23:14:18 2022: client_address:('127.0.0.1', 59257) path:/emailserver method: POST
+Sat Jul 16 23:14:18 2022: Accept: application/json Content-type: application/json status:200
+Sat Jul 16 23:14:18 2022: postcontents: b'{"message":"oifnwe","fullname":"iviuv","email":"iowoqiwn!@gmail.com","phone":"N/A"}'
+Sat Jul 16 23:14:18 2022: postdata{'message': 'oifnwe', 'fullname': 'iviuv', 'email': 'iowoqiwn!@gmail.com', 'phone': 'N/A'}
+Sat Jul 16 23:14:18 2022: <smtplib.SMTP_SSL object at 0x7f9d8a67f6a0>
+Sat Jul 16 23:14:19 2022: <smtplib.SMTP_SSL object at 0x7f9d8a67f6a0>
+Sat Jul 16 23:14:19 2022: global vars set
+Sat Jul 16 23:14:20 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sat Jul 16 23:14:20 2022: sucess main fn
+Sat Jul 16 23:14:20 2022: status:200 responseBody:{"status": 200, "date": 1658038460.074653, "error": ""}
+Sun Jul 17 13:33:08 2022: server starting on port 2400 localhost
+Sun Jul 17 13:33:27 2022: client_address:('127.0.0.1', 56599) path:/emailserver method: POST
+Sun Jul 17 13:33:27 2022: Accept: application/json Content-type: application/json status:200
+Sun Jul 17 13:33:27 2022: postcontents: b'{"message":"some message","phone":"N/A","email":"soundbreakr1@gmail.com","fullname":"grant mitchell"}'
+Sun Jul 17 13:33:27 2022: postdata{'message': 'some message', 'phone': 'N/A', 'email': 'soundbreakr1@gmail.com', 'fullname': 'grant mitchell'}
+Sun Jul 17 13:33:27 2022: <smtplib.SMTP_SSL object at 0x7fb454eb45e0>
+Sun Jul 17 13:33:28 2022: <smtplib.SMTP_SSL object at 0x7fb454eb45e0>
+Sun Jul 17 13:33:28 2022: global vars set
+Sun Jul 17 13:33:29 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sun Jul 17 13:33:29 2022: sucess main fn
+Sun Jul 17 13:33:29 2022: status:200 responseBody:{"status": 200, "date": 1658090009.021667, "error": ""}
+Sun Jul 17 13:36:01 2022: client_address:('127.0.0.1', 57412) path:/emailserver method: POST
+Sun Jul 17 13:36:01 2022: Accept: application/json Content-type: application/json status:200
+Sun Jul 17 13:36:01 2022: postcontents: b'{"message":"some message","fullname":"grant mitchell","email":"soundbreakr1@gmail.com","phone":"N/A"}'
+Sun Jul 17 13:36:01 2022: postdata{'message': 'some message', 'fullname': 'grant mitchell', 'email': 'soundbreakr1@gmail.com', 'phone': 'N/A'}
+Sun Jul 17 13:36:01 2022: <smtplib.SMTP_SSL object at 0x7fb454e9bd90>
+Sun Jul 17 13:36:02 2022: <smtplib.SMTP_SSL object at 0x7fb454e9bd90>
+Sun Jul 17 13:36:02 2022: global vars set
+Sun Jul 17 13:36:02 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sun Jul 17 13:36:02 2022: sucess main fn
+Sun Jul 17 13:36:02 2022: status:200 responseBody:{"status": 200, "date": 1658090162.966648, "error": ""}
+Sun Jul 17 13:57:33 2022: interupt
+Sun Jul 17 13:57:34 2022: server starting on port 2400 localhost
+Sun Jul 17 13:58:00 2022: interupt
+Sun Jul 17 13:58:00 2022: server starting on port 2400 localhost
+Sun Jul 17 13:58:06 2022: Accept:* Content-type: application/json status:200
+Sun Jul 17 13:58:06 2022: client_address:('127.0.0.1', 64628) path:/emailserver method: POST
+Sun Jul 17 13:58:06 2022: postcontents: b'{"message":"some message","fullname":"grant mitchell","email":"soundbreakr1@gmail.com","phone":"N/A"}'
+Sun Jul 17 13:58:06 2022: postdata{'message': 'some message', 'fullname': 'grant mitchell', 'email': 'soundbreakr1@gmail.com', 'phone': 'N/A'}
+Sun Jul 17 13:58:06 2022: <smtplib.SMTP_SSL object at 0x7fa028e997c0>
+Sun Jul 17 13:58:06 2022: <smtplib.SMTP_SSL object at 0x7fa028e997c0>
+Sun Jul 17 13:58:06 2022: global vars set
+Sun Jul 17 13:58:07 2022: sentmail: True sender:zenabysscompany@gmail.com sentTo:welcometoreality2808@gmail.com
+Sun Jul 17 13:58:07 2022: sucess main fn
+Sun Jul 17 13:58:07 2022: status:200 responseBody:{"status": 200, "date": 1658091487.61187, "error": ""}
+Sun Jul 17 13:58:28 2022: interupt
+Sun Jul 17 14:33:27 2022: server starting on port 2400 localhost
+Sun Jul 17 14:33:42 2022: interupt

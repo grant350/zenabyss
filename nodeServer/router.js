@@ -13,11 +13,11 @@ var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var mailer = require('./mailer_util');
 
-
 class Router {
   constructor(){
     this.url = "http://127.0.0.1:8080/about";
     this.createSession = this.createSession.bind(this);
+    this.contact =  this.contact.bind(this);
   }
 
   getExpiration(h){
@@ -227,12 +227,11 @@ Promise.all(promises).then(updatedProducts=>{
 
 contact(req,res,next){
 
-
-var data = req.body;
-
-mailer.main(data.message,data.fullname,data.email,'welcometoreality2808@gamil.com')
-
+ var data = req.body;
+ console.log('called contact')
+ mailer.main({message:data.message,fullname:data.fullname,email:data.email},res)
 
 }
+
 }
 module.exports = Router;
