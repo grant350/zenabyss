@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Python Image
+      working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
+      run:  docker build --tag mitchell5790/zenabyss:python_server .
+
+    - name: Build the Node Image
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: docker build --tag mitchell5790/zenabyss:node_server .
