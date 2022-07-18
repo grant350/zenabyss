@@ -2,7 +2,8 @@ name: zenabyss
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - '*'   # includes all
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,12 +19,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Change Directory
-      run: |
-        cd pythonServer
+      run: cd pythonServer
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-      run: |
-        pytest -q ./py_test/*
+      run: pytest -q ./py_test/*
