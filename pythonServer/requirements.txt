@@ -3,3 +3,4 @@ google_auth_oauthlib==0.5.2
 protobuf==4.21.2
 simplejson==3.17.6
 pytest==3.04
+attrs==19.1.0
