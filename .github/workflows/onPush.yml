@@ -5,9 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-- uses: actions/setup-python@v4
-  with:
-    python-version: ['3.9']
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10']
 
     steps:
     - uses: actions/checkout@v3
