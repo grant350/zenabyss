@@ -13,6 +13,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from string_interpolate import interpolate
+
 # gv = open('./credentials/global_variables.json')
 # jsonstring = gv.read()
 # jsonobj = json.loads(jsonstring)
