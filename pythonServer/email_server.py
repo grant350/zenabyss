@@ -13,9 +13,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from string_interpolate import interpolate
-# gv = open('./credentials/global_variables.json')
-# jsonstring = gv.read()
-# jsonobj = json.loads(jsonstring)
+
 class MyHandler(BaseHTTPRequestHandler):
     response_body=''
     status=200
@@ -50,11 +48,9 @@ class MyHandler(BaseHTTPRequestHandler):
             def sendemail(data):
                 logger('data: '+str(data))
                 if (os.path.exists('./credentials/global_variables.json')):
-                    print('file exists')
                     logger('file exists')
                     gv = open('./credentials/global_variables.json')
                     jsonobj = json.load(gv)
-                    print(jsonobj)
                     logger(str(jsonobj))
                     logger(str(jsonobj["contact_form_settings"]["from_gmail"]))
                     global_variables = jsonobj["contact_form_settings"]
@@ -80,12 +76,10 @@ class MyHandler(BaseHTTPRequestHandler):
                        server_ssl.close()
                        logger("sentmail: True " + "sender:"+str(global_variables["from_gmail"])+ " sentTo:"+str(global_variables["send_email_to"]))
                        f.close()
-                       print('was successful')
                        return True
                     except:
                        logger('failed to start google ssl email server')
                 else:
-                    print('failed to open file')
                     logger("failed line 41")
                     return False
             if (sendemail(postdata)):
@@ -108,11 +102,8 @@ def stoppable_http_server(self):
     """ to start and stop server """
     try:
         logger('server starting on port 2400 localhost')
-
-        print('server is starting on port 2400')
         self.serve_forever()
     except KeyboardInterrupt:
-        print('Exit server')
-        logger('interupt')
+        logger('interupt exit server')
         self.server_close()
 stoppable_http_server(server)

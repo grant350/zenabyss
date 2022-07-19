@@ -1,4 +1,10 @@
 # content of test_class.py
+import collections
+try:
+    collections = collections.abc
+except AttributeError:
+    collections = collections
+
 class TestClass:
     def test_one(self):
         x = "this"
@@ -6,4 +12,4 @@ class TestClass:
 
     def test_two(self):
         x = "hello"
-        assert hasattr(x, "check")
+        assert x == "hello"
