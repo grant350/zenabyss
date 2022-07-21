@@ -24,10 +24,10 @@ jobs:
     - name: Run Tests
       working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
       run: pytest -q ./py_test/*
+
   buildnode:
 
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x, 17.x]
@@ -38,6 +38,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: test directorys
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
       - run: npm install
       - run: npm run build
