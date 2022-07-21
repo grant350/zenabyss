@@ -1,32 +1,29 @@
 name: CD Docker Deploy
-
 on:
   push:
     branches: [ main ]
 jobs:
   deploy:
-    name: Upload to Amazon ec2
-    runs-on: ubuntu-latest
-    # These permissions are needed to interact with GitHub's OIDC Token endpoint.
+    name: "deploy to docker"
     permissions:
-      id-token: write
       contents: read
+      id-token: write
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Configure Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        role-to-assume: arn:aws:iam::580347531117:role/SSM_king
-        aws-region: us-east-1
-    - name: Deploy
-      run: |
-         aws ssm start-session \
-        --target "i-0faeec2d56a87c751"
-    - name: run deploymentscript
-      run: |
-      aws ssm send-command \
-      --instance-ids "i-0faeec2d56a87c751" \
-      --document-name "AWS-RunShellScript" \
-      --comment "IP config" \
-      --parameters "commands=sh ~/ssm-user/deploy.sh"
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: "Configure AWS credentials from Production account"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-west-2
+          role-to-assume: "arn:aws:iam::580347531117:role/SSM_king"
+      -
+        name: "deploy script"
+        run:  |
+          aws ssm send-command \
+          --instance-ids "i-0faeec2d56a87c751" \
+          --document-name "AWS-RunShellScript" \
+          --comment "IP config" \
+          --parameters "commands=sh ~/ssm-user/deploy.sh"

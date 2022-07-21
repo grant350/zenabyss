@@ -18,7 +18,7 @@ jobs:
       working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
       run: docker build --tag mitchell5790/zenabyss:node_server .
 
-  Publish:
+  publish:
     needs: build
     - name: push Python Image
       working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
