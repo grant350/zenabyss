@@ -34,19 +34,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: test directorys
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-      - run: npm install
+
       - name: Installing depend
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
       - run: npm install
+
       - name: build react code
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
       - run: npm run build
+
       - name: test the code
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
       - run: npm test
