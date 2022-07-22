@@ -145,7 +145,7 @@ app.get('/searchProducts', (req,res,next)=>{
 app.get('*',function(req,res){
   console.log(req.path)
   if (req.path.includes("png") || req.path.includes("jpg") || req.path.includes("jpeg")){
-    res.sendFile(path.join(__dirname, '/build/'+req.path) );
+    // res.sendFile(path.join(__dirname, '/build/'+req.path) );
   } else {
     res.status(404).render('404');
   }
