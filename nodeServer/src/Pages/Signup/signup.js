@@ -129,7 +129,7 @@ function Signup(props){
 return (
   <div className="signup">
      {error_message?<Box sx={{ flexGrow: 1 }} className="error_message">{error_message}</Box>:null}
-  <div className="background-image" >
+  <div className="background-image"  style={{ "backgroundImage": "url(/main_photo.jpg)"}}>
     <div className="blackness">
         <div className="login-wrapper">
         <FormGroup controls={fgroup} name="login"  ref={ref}  JSXContainer={FormContainer}></FormGroup>

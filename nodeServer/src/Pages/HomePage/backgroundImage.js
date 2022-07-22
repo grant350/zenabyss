@@ -9,8 +9,7 @@ function BackgroundImage(props){
 
   }
   return (
-  <div className="background-image" style={{ "backgroundImage": "url('/public/main_photo.jpg');
-}} >
+  <div className="background-image" style={{ "backgroundImage": "url(/main_photo.jpg)"}} >
     <div className="blackness">
 
         <div className="get-started">

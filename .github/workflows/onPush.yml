@@ -3,7 +3,7 @@ name: zenabyss
 on: [push]
 
 jobs:
-  build:
+  buildpython:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -14,8 +14,7 @@ jobs:
     - uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: printDirectory
-      run: ls
+
     - name: Install Dependencies
       working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
       run: |
@@ -24,3 +23,23 @@ jobs:
     - name: Run Tests
       working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
       run: pytest -q ./py_test/*
+
+  buildnode:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '12.x'
+
+    - name: install nodejs
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm install
+    - name: build
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm run build
+
+    - name: test the code
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm test

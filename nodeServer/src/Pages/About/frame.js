@@ -8,7 +8,7 @@ return (
     {/* <object style={{width:'80%', height:'500px'}} data={props.url} type="application/pdf">
      <embed src={props.url} type="application/pdf" />
    </object> */}
-   <iframe src='/Resume.pdf'  style={{width:'80%', height:'500px'}}  >
+   <iframe src='/Resume.pdf'  title="resume" style={{width:'80%', height:'500px'}}  >
    </iframe>
 
   </div>
