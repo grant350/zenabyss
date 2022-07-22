@@ -28,17 +28,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-        uses: actions/setup-node@v3
-        with:
-          node-version: '12.x'
-      - name: Use Node.js
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm install
+    - uses: actions/checkout@v3
+      uses: actions/setup-node@v3
+      with:
+        node-version: '12.x'
 
-      - name: build
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm run build
-      - name: test the code
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm test
+    - name: install nodejs
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm install
+    - name: build
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm run build
+
+    - name: test the code
+      working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+      run: npm test
