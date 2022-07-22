@@ -83,15 +83,18 @@ app.use(cors());
 console.log(path.join(__dirname, 'build'))
 app.use(express.static(path.join(__dirname, '/build')));
 
-app.use('/images',express.static(path.join(__dirname, '/build/images')));
+app.get('/images/*',function(req,res){
+  res.sendFile(path.resolve(__dirname, 'build'+req.path));
+})
+// app.use('/images',express.static(path.join(__dirname, '/build/images')));
 
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
 app.use(Authorize_Session)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'build/index.html'));
+// });
 
 
 app.post('/emailserver', (req,res,next)=>{
