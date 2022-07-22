@@ -82,10 +82,10 @@ app.use(bp.json({ limit: "50mb" }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
 
-// app.get('/images/*',function(req,res){
-//   console.log(path.join(__dirname, 'build'+req.path))
-//   res.sendFile(path.join(__dirname, 'build'+req.path));
-// })
+app.get('/images/*',function(req,res){
+  console.log(path.join(__dirname, 'build'+req.path))
+  res.sendFile(path.join(__dirname, 'build'+req.path));
+})
 
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
