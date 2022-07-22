@@ -80,21 +80,17 @@ var Authorize_Session = (req,res,next)=>{
 
 app.use(bp.json({ limit: "50mb" }));
 app.use(cors());
-console.log(path.join(__dirname, 'build'))
-app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/images/*',function(req,res){
-  res.sendFile(path.resolve(__dirname, 'build'+req.path));
-})
-// app.use('/images',express.static(path.join(__dirname, '/build/images')));
+// app.get('/images/*',function(req,res){
+//   console.log(path.join(__dirname, 'build'+req.path))
+//   res.sendFile(path.join(__dirname, 'build'+req.path));
+// })
 
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
 app.use(Authorize_Session)
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, 'build/index.html'));
-// });
 
 
 app.post('/emailserver', (req,res,next)=>{

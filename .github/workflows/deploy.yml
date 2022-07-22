@@ -7,17 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '17.x'
-
-      - name: install
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm install
-
-      - name: build and compile node
-        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm run build
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
