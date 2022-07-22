@@ -31,30 +31,27 @@ jobs:
         run: docker push  mitchell5790/zenabyss:node_server
 
   deploy:
-    name: "deploy to docker"
-    permissions:
-      contents: read
-      id-token: write
-    needs: build
-
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9']
+
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: "Configure AWS credentials from Production account"
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-1
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-to-assume: "arn:aws:iam::580347531117:role/SSM_king"
-      -
-        name: "deploy script"
-        run:  |
-          aws ssm send-command \
-          --instance-ids "i-0faeec2d56a87c751" \
-          --document-name "AWS-RunShellScript" \
-          --comment "IP config" \
-          --parameters "commands=sh ~/ssm-user/deploy.sh"
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install aws cli
+      run: |
+        python -m pip install --upgrade pip
+        pip install awscli
+
+    - name: configure env
+      run: |
+        aws configure set aws_access_key_id  ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1
+
+    - name: deploy script
+      run:  aws ssm send-command --instance-ids "i-0faeec2d56a87c751"   --document-name "AWS-RunShellScript"     --comment "deployment script"     --parameters commands='["sh /home/ssm-user/deploy.sh"]'   --output text
