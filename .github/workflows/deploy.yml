@@ -22,7 +22,7 @@ jobs:
         run:  docker build --tag mitchell5790/zenabyss:python_server .
       - name: install
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
-        run: npm install --production
+        run: npm install
       - name: build and compile node
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
         run: npm run build
