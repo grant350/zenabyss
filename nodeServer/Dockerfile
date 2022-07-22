@@ -4,7 +4,7 @@ ENV PORT 8080
 RUN npm shrinkwrap
 COPY package*.json ./
 RUN npm install --production
-COPY public ./
-RUN npm run build
 COPY . .
+RUN npm run build
+RUN rm -rf ./src
 CMD ["node","./server.js"]
