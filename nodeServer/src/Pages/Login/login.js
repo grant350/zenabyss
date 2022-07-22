@@ -84,7 +84,7 @@ function Login(props){
 
 return (
   <div className="login">
-  <div className="background-image" >
+  <div className="background-image"  style={{ "backgroundImage": "url(/public/main_photo.jpg)"}}>
     <div className="blackness">
 
         <div className="login-wrapper">
