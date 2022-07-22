@@ -82,12 +82,10 @@ var Authorize_Session = (req,res,next)=>{
 
 app.use(bp.json({ limit: "50mb" }));
 app.use(cors());
-app.use(express.static(path.join(__dirname,'build')));
+app.use("/", express.static(path.join(__dirname,'build')));
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
 app.use(Authorize_Session)
-
-
 app.post('/emailserver', (req,res,next)=>{
   console.log('sending request to util')
   router.contact(req,res,next)
@@ -145,7 +143,11 @@ app.get('/searchProducts', (req,res,next)=>{
 })
 
 app.get('*',function(req,res){
-  res.status(404).render('404');
+  if (req.path.includes("png") || req.path.includes("jpg") || req.path.includes("jpeg")){
+    res.sendFile(path.join(__dirname, 'build/index.html') );
+  } else {
+    res.status(404).render('404');
+  }
 });
 app.listen(port,function(){
   console.log('listening on ',port);
