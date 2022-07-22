@@ -54,7 +54,7 @@ const Contact = function (props){
     "email":{
       "type":"formControl",
       "label":"Email",
-      "helperText":"soundbreakr1@gmail.com",
+      "helperText":"myemail@gmail.com",
       "validator": (value,obs)=>{
         value = value.toLowerCase();
         var isValid=true;
