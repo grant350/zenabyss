@@ -41,7 +41,7 @@ var Header = function(props){
           <IconButton onClick={(e)=>{toggelNav()}} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-         <img className="logo" alt="logo" onClick={home} src="/logo.png"/>
+         <img className="logo" alt="logo" onClick={home} src="/images/logo.png"/>
           <Typography className="logoName" variant="h6" color="inherit" component="div">
             Zenabyss
           </Typography>
