@@ -15,6 +15,13 @@ jobs:
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
         run: npm install
 
+      - name: print working directory
+        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+        run: |
+          cd /home/runner/work/zenabyss/zenabyss/nodeServer/build
+          ls
+
+
       - name: build and compile node
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
         run: npm run build
