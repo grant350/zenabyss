@@ -8,6 +8,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12.x'
+
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -17,7 +21,9 @@ jobs:
       - name: Build the Python Image
         working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
         run:  docker build --tag mitchell5790/zenabyss:python_server .
-
+      - name: build and compile node
+        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+        run: npm run build
       - name: Build the Node Image
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
         run: docker build --tag mitchell5790/zenabyss:node_server .
