@@ -20,6 +20,9 @@ jobs:
       - name: Build the Python Image
         working-directory: /home/runner/work/zenabyss/zenabyss/pythonServer
         run:  docker build --tag mitchell5790/zenabyss:python_server .
+      - name: install
+        working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
+        run: npm install --production
       - name: build and compile node
         working-directory: /home/runner/work/zenabyss/zenabyss/nodeServer
         run: npm run build
@@ -36,6 +39,7 @@ jobs:
         run: docker push  mitchell5790/zenabyss:node_server
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
