@@ -65,4 +65,4 @@ jobs:
         aws configure set region us-east-1
 
     - name: deploy script
-      run:  aws ssm send-command --instance-ids "i-0faeec2d56a87c751"   --document-name "AWS-RunShellScript"     --comment "deployment script"     --parameters commands='["sudo sh /home/ssm-user/deployment/deploy.sh"]'   --output text
+      run:  aws ssm send-command --timeout-seconds 5000  --instance-ids "i-0faeec2d56a87c751"   --document-name "AWS-RunShellScript"     --comment "deployment script"     --parameters commands='["sh /home/ssm-user/deployment/deploy.sh"]'   --output text
