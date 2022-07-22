@@ -145,7 +145,13 @@ app.get('/searchProducts', (req,res,next)=>{
 })
 
 app.get('*',function(req,res){
-  res.status(404).render('404');
+  console.log(req.path)
+  if (req.path.includes("png") || req.path.includes("jpg") || req.path.includes("jpeg")){
+    res.sendFile(path.join(__dirname, 'build/index.html') );
+
+  } else {
+    res.status(404).render('404');
+  }
 });
 app.listen(port,function(){
   console.log('listening on ',port);
