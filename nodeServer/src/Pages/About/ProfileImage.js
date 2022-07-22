@@ -10,7 +10,7 @@ return (
   <div className="profile-column">
 <Avatar
   alt="Remy Sharp"
-  src="profile.jpg"
+  src="/images/profile.jpg"
   sx={{ width: 200, height: 200, objectPosition: 'left top'}}
 />
   <p className="bold center" style={{padding:'3px'}}>Professional Software Engineer</p>
