@@ -32,7 +32,9 @@ body {
     height:4px!important;
   }
 }
-
+.hamburger{
+  display: none;
+}
 
 .main_color {
   background:#d1b58f;
@@ -212,6 +214,9 @@ code {
   .MuiFormControl-root{
     width: 90%!important;
   }
+  .hamburger{
+    display: block!important;
+  }
   .about .backgroundtop{
     width:100%!important;
     height: 176px!important;
@@ -228,7 +233,10 @@ code {
     }
   }
 
-
+ .frame-ct iframe {
+  width: 95%!important;
+  height: 600px!important;
+ }
 .tab-ct{
   display:none;
 }
@@ -249,5 +257,8 @@ code {
   .dropdown-ct{
     display:none!important;
 
+  }
+  .hamburger{
+    display: none!important;
   }
 }

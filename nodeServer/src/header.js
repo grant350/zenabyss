@@ -10,6 +10,7 @@ import './global.scss';
 
 import Settings from './settings/settings.js';
 var routeObject =Settings.getRoutes();
+
 var DropDownMenu = function(props){
   let auth = UseAuth();
   let navigate = useNavigate()
@@ -80,9 +81,11 @@ var Header = function(props){
       <AppBar style={{backgroundColor:props.header_color}} position="static">
         <Toolbar variant="dense">
           {/* #d1b58f!important */}
-          <IconButton onClick={(e)=>{toggelNav()}} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          <div className="hamburger">
+          <IconButton  onClick={(e)=>{toggelNav()}} edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
+          </div>
          <img className="logo" alt="logo" onClick={(e)=>{ navigate('/',{replace:true})}} src="/images/logo.png"/>
           <Typography className="logoName" variant="h6" color="inherit" component="div">
             Zenabyss
