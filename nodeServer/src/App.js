@@ -23,7 +23,6 @@ var App = function ()  {
         <div className="boxContainer">
         <Routes>
         {Object.keys(routeObject).map((key,index)=>{
-          var name = key
           var r = routeObject[key]
         var count = (r.path.match(/\//g) || []).length;
           if (count>1){
