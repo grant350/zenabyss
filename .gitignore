@@ -7,18 +7,10 @@
 
 
 #private files
-Resume.pdf
-profile_background.jpg
-profile.jpg
-logo.ico
-logo.png
-main_photo.jpg
-# testing
 /coverage
 
 # production
 *env
-*.png
 # misc
 .DS_Store
 .env.local
@@ -33,4 +25,4 @@ __pycache__
 *token*
 *credentials*
 __pycache__
-build
+# build
