@@ -6,7 +6,6 @@ import axios from 'axios';
 
 function MessageComponent(props){
 
-
   return (<Fragment>
     <label style={{width:'100%',display:'block'}}> {props.label}</label>
    <TextareaAutosize
@@ -17,9 +16,7 @@ function MessageComponent(props){
     onChange={(e)=>{props.update(e.target.value)}}
     style={{ width: '60%' ,height:"200px",borderLeft:'12px solid '+props.border}}
   /> </Fragment>)
-
 }
-
 
 const Contact = function (props){
   var [message,setMessage] = useState(null)

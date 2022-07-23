@@ -1,108 +1,42 @@
 import './App.scss';
-import {React,useState,useEffect} from 'react';
-import {Tabs,Tab} from  '@mui/material';
-import InsertForm from './insertForm';
-import OrderForm from './orderForm';
-import SearchForm from './searchForm';
-import { Routes, Route,useNavigate,useLocation ,Navigate} from "react-router-dom";
-import Login from './Pages/Login/login';
-import Signup from './Pages/Signup/signup';
+import {React,useState} from 'react';
+
+import { Routes, Route} from "react-router-dom";
+import {AuthProvider} from './authentication';
+import RequireAuth from './requireAuth'
 import Header from './header';
-import HomePage from './Pages/HomePage/homepage';
-import {AuthProvider,UseAuth} from './authentication';
-import About from './Pages/About/about.js';
-import Contact from './Pages/Contact/contact.js';
+import Settings from './settings/settings.js';
 
-function RequireAuth(props) {
-  var children = props.children
-  var location = useLocation();
-  let auth = UseAuth();
-
-  useEffect(() => {
-      switch (location.pathname){
-        case "/about": props.setComponent('about');
-        break;
-        case "/insert/product":props.setComponent('product');
-        break;
-        case "/insert/order": props.setComponent('order');
-        break;
-        case "/": props.setComponent('home');
-        break;
-        case "/login": props.setComponent(false);
-        break;
-        case "/contact": props.setComponent('contact');
-        break;
-        default:props.setComponent('home');
-    }
-  });
-
-  if (!auth.isLoggedin && !props.isPublic) {
-    return <Navigate to="/login" state={{ from: location,isLoggedin:auth.isLoggedin }} replace />;
-  } else {
-  return children;
-  }
-}
+var routeObject =Settings.getRoutes();
 
 var App = function ()  {
-
     var [component,setComponent] = useState('home')
-    let navigate = useNavigate();
-  var handleChange = (e, newValue)=> {
-    switch (newValue){
-      case "about": navigate('/about',{ replace: true });
-      break;
-      case "product": navigate('/insert/product',{ replace: true });
-      break;
-      case "order": navigate('/insert/order',{ replace: true });
-      break;
-      case "home": navigate('/',{ replace: true });
-      break;
-      case "contact": navigate('/contact',{ replace: true });
-      break;
-      default: navigate('/',{ replace: true });
+    var header_color = "#d1b58f"
+
+    if (component === "home"){
+      header_color="transparent"
     }
-  };
-
-
-
     return (
       <AuthProvider>
-
       <div className="App">
-         <Header>
-            <SearchForm />
-        </Header>
-        <div className="tab-ct">
-        <Tabs  value={component ?? false} onChange={handleChange}>
-          <Tab className="hovertab" label="home" value={"home"}  />
-          <Tab className="hovertab" label="product"  value="product"/>
-          <Tab className="hovertab" value="order" label="order"  />
-          <Tab className="hovertab" value="about"  label="about"   />
-          <Tab className="hovertab" value="contact"  label="contact"   />
-
-        </Tabs>
-         </div>
-
+         <Header header_color={header_color} component={component} setComponent={setComponent} />
         <div className="boxContainer">
         <Routes>
-        <Route path="/" element={<RequireAuth setComponent={setComponent} isPublic={true}><HomePage /></RequireAuth>} />
-        <Route exact path="/login" element={<RequireAuth setComponent={setComponent} isPublic={true}><Login /></RequireAuth>} />
-        <Route exact  path="/about" element={<RequireAuth setComponent={setComponent} isPublic={true}><About /></RequireAuth>} />
-        <Route exact  path="/signup" element={<RequireAuth setComponent={setComponent} isPublic={true}><Signup /></RequireAuth>} />
-        <Route exact  path="/contact" element={<RequireAuth setComponent={setComponent} isPublic={true}><Contact /></RequireAuth>} />
-
-
-        <Route path="/insert"  >
-          <Route path="order" element={<RequireAuth setComponent={setComponent} isPublic={false}><OrderForm /></RequireAuth>} />
-          <Route path="product"   element={<RequireAuth setComponent={setComponent} isPublic={false}><InsertForm  /></RequireAuth>} />
-        </Route>
+        {Object.keys(routeObject).map((key,index)=>{
+          var name = key
+          var r = routeObject[key]
+        var count = (r.path.match(/\//g) || []).length;
+          if (count>1){
+            var nestesdroutes = r.path.split("/")
+            nestesdroutes.splice(0,1);
+            return (  <Route key={index} path={nestesdroutes[0]}> <Route path={nestesdroutes[1]} element={<RequireAuth setComponent={setComponent} isPublic={r.isPublic}>{r.component}</RequireAuth>} /> </Route>)
+          } else {
+            return (  <Route key={index} path={r.path} element={<RequireAuth setComponent={setComponent} isPublic={r.isPublic}> <div className="wrapperPage">{r.component}</div></RequireAuth>} />)
+          }
+        })}
 
       </Routes>
-
       </div>
-
-
-
 
       </div>
       </AuthProvider>

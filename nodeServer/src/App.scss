@@ -11,27 +11,39 @@ body {
   height: 80%;
   border-radius: 10px;
   margin-right: 15px;
+  cursor: grab;
 }
-
+.wrapperPage{
+  width: 100%;
+  height: 100%;
+}
 .tab-ct{
-  background:#B0A150;
+  // background:#B0A150;
   color:white!important;
   .MuiTab-textColorPrimary{
     color:white;
   }
   .Mui-selected {
     color:white!important;
-    background-color: rgba(149,135,62,.66) !important;
+    // background-color: rgba(149,135,62,.66) !important;
   }
   .MuiTabs-indicator{
-    background-color:#BE8543!important;
+    background-color:white!important;
     height:4px!important;
   }
 }
 
+
+.main_color {
+  background:#d1b58f;
+}
+
+
 header{
-  background-color:#BE8543!important;
+  // background-color:transparent!important;
   // height: 50px;
+  z-index:+32!important;
+  position: relative!important;
   // background-color:yellow!important;
   .MuiTypography-h6 {
     height: 27%!important;
@@ -177,7 +189,7 @@ code {
     position: absolute;
     z-index: +333;
   .MuiList-padding{
-    background:#9cac33ad!important;
+    background: rgb(209 181 143);
     padding:0px!important;
   }
 .MuiPaper-root {
@@ -187,7 +199,8 @@ code {
   .MuiMenuItem-gutters{
     border-bottom: 1px solid white;
     &:hover{
-      background: #b2d01559;
+      background: rgb(209 181 143);
+      filter: brightness(0.7);
     }
    }
 
@@ -195,7 +208,7 @@ code {
 
 
 /* Iphones under 500px  */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 920px) {
   .MuiFormControl-root{
     width: 90%!important;
   }
@@ -232,7 +245,7 @@ code {
 
 
 }
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 920px) {
   .dropdown-ct{
     display:none!important;
 
