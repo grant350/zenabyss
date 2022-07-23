@@ -9,8 +9,9 @@ return (
 
   <div className="frame-ct">
     <span className="bold center" style={{display:'block',width:'100%'}} > {props.text}</span>
-   <iframe src={props.url}  title="resume" style={{width:'80%', height:'500px'}}  >
-   </iframe>
+   <object data={props.url} type="application/pdf"  style={{width:'80%', height:'500px'}}>
+     <embed src={props.url} type="application/pdf" />
+  </object>
   </div>
   );
 

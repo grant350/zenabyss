@@ -13,8 +13,11 @@ const About = function (props){
   const [url, setURL] = useState(path+"#zoom=100")
 
     var checkWidth = (window_width)=>{
-      if (window_width <= 550){
-        setURL(path+"#zoom=50")
+      if (window_width <= 350){
+        setURL(path+"#zoom=30")
+      }
+      if (window_width <= 550 && window_width > 350){
+        setURL(path+"#zoom=45")
       }
       if (window_width <= 700 && window_width > 550){
         setURL(path+"#zoom=60")
