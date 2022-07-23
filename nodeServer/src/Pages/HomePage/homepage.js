@@ -4,7 +4,7 @@ import './homepage.scss'
 import X from '../class'
 function HomePage(props){
   return (
-  <div className="homepage" >
+  <div className="homepage" style={{ marginTop: "-50px"}} >
     <BackgroundImage />
     <X></X>
     </div>

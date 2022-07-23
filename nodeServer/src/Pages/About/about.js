@@ -8,20 +8,15 @@ import Frame from './frame'
 
 const About = function (props){
 
-
-
-
 return (
   <div className="about">
     <BackgroundTop></BackgroundTop>
     <div className="profile_info center">
-
       <ProfileImage></ProfileImage>
       <ProfileDescription></ProfileDescription>
   <Frame url='/images/resume.pdf' text={'My resume'}></Frame>
     </div>
   </div>);
-
 
 }
 export default About;
