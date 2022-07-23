@@ -30,9 +30,12 @@ var DropDownMenu = function(props){
         <MenuList>
           {Object.keys(routeObject).map(key=>{
             var r = routeObject[key]
-            // var name = key
             r.label[0].toUpperCase();
-            return <MenuItem onClick={(e)=>{nav(r.path)}}>{r.label}</MenuItem>
+            if (r.name !== "login"){
+              return <MenuItem onClick={(e)=>{nav(r.path)}}>{r.label}</MenuItem>
+            } else {
+              return null
+            }
           })}
           {auth.isLoggedIn? <MenuItem>Logout</MenuItem>:<MenuItem onClick={(e)=>{logout(); nav('/login')}}>Login</MenuItem>}
         </MenuList>
