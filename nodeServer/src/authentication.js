@@ -24,7 +24,7 @@ useEffect(()=>{
 })
 
 return (
-  <AuthContext.Provider isLoggedin={isLoggedin} value={{isLoggedin}}>
+  <AuthContext.Provider isLoggedin={isLoggedin} setLoggedin={setLoggedin} value={{isLoggedin:isLoggedin,setLoggedin:setLoggedin}}>
     {props.children}
   </AuthContext.Provider>
   )

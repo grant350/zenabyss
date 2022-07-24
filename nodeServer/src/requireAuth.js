@@ -21,7 +21,7 @@ function RequireAuth(props) {
     })
   });
   if (!auth.isLoggedin && !props.isPublic) {
-    return <Navigate to="/login" state={{ from: location,isLoggedin:auth.isLoggedin }} replace />;
+    return <Navigate to="/login" state={{ from: location,isLoggedin:auth.isLoggedin }} replace={true} />;
   } else {
   return children;
   }

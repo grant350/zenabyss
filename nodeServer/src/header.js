@@ -19,9 +19,10 @@ var DropDownMenu = function(props){
     navigate(route)
     props.setNav(false);
   }
-  function logout(){
+  var  logout = ()=>{
     deleteCookie('user_session')
     deleteCookie('user_id')
+    auth.setLoggedin(false)
     navigate('/')
   }
   return (
@@ -65,9 +66,12 @@ var Header = function(props){
     })
   };
 
-  function logout(){
+  var  logout = ()=>{
+    console.log('logout clicked')
     deleteCookie('user_session')
     deleteCookie('user_id')
+    auth.setLoggedin(false)
+
     navigate('/')
   }
 
