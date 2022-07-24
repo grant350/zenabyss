@@ -51,6 +51,7 @@ var Authorize_Session = (req,res,next)=>{
       if (req.query.user_id !== undefined && token !== null){
          User_Session.find({user_id: req.query.user_id }).then(session=>{
            console.log(session)
+try{
           req.jwtData = jwt.verify(token, session[0].salt);
           if (req.jwtData){
             if (session.length >0){
@@ -66,6 +67,9 @@ var Authorize_Session = (req,res,next)=>{
           } else {
             req.authorized = {redirect:'/login',authorized:false}
           }
+        } catch {
+          req.authorized = {redirect:'/login',authorized:false}
+        }
           next()
 
          })

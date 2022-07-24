@@ -15,7 +15,6 @@ var mailer = require('./mailer_util');
 
 class Router {
   constructor(){
-    this.url = "http://127.0.0.1:8080/about";
     this.createSession = this.createSession.bind(this);
     this.contact =  this.contact.bind(this);
   }
@@ -91,6 +90,7 @@ login(req,res,next){
       role: 'user'
     }
     var token = jwt.sign(payload, req.user.salt);
+    // find session and replace or create new one
       User_Session.create({user_id:user_id,expiration:expiration,salt:salt}).then(new_session=>{
         res.json({token:token,redirect:'/',user_id:user_id});
       }).catch(err=>{
@@ -104,32 +104,31 @@ login(req,res,next){
   }
 
   createUser(req,res,next){
-    console.log(req.body)
     req.body.username=req.body.username.toLowerCase()
-    Users.find({username:req.body.username,email:req.body.email}).then(result=>{
+    Users.find({$or:[{username: req.body.username},{email:req.body.email}] }).then(result=>{
       //send client an error bar user exists
       if (result.length > 0){
         res.json({redirect:'/signup',error:"user already exists with same username or email address please use another"});
       } else {
-        throw new Error('no results')
+        console.log('else')
+        var obj = Object.assign({},req.body)
+        obj.date = this.getDate();
+        obj.user_id = uuidv4();
+        bcrypt.genSalt(10, (err, salt)=> {
+          obj.salt=salt
+          bcrypt.hash(obj.password, salt, (err, hash)=> {
+              obj.hash=hash;
+              delete obj.password;
+              Users.create(obj).then(results=>{
+                req.user=obj;
+                this.createSession(req,res,next);
+              })
+          });
+      });
       }
 
     }).catch(err=>{
-      var obj = Object.assign({},req.body)
-      obj.date = this.getDate();
-      obj.user_id = uuidv4();
-      bcrypt.genSalt(10, (err, salt)=> {
-        obj.salt=salt
-        bcrypt.hash(obj.password, salt, (err, hash)=> {
-            // Store hash in your password DB.
-            obj.hash=hash;
-            delete obj.password;
-            Users.create(obj).then(results=>{
-              req.user=obj;
-              this.createSession(req,res,next);
-            })
-        });
-    });
+        console.log(err)
 
     })
 

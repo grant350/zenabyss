@@ -1,7 +1,7 @@
 import {React,useState,useRef} from 'react';
 import {useNavigate} from "react-router-dom";
 import {FormGroup} from '@zenabyss/reactformbuilder';
-import {Button,FormControl,TextField,FormHelperText,Box} from '@mui/material'
+import {Button,Box} from '@mui/material'
 import './signup.scss';
 import axios from 'axios';
 import {createCookie,deleteCookie} from '../../cookie';
@@ -11,16 +11,9 @@ function Signup(props){
   const ref = useRef();
 
   function FormContainer(props){
-    return (<div className="noborder-ct" style={{textAlign:'center',boxSizing:'content-box',padding:'20px',border:"2px solid "+props.border}}> {props.children}</div>)
+    return (<div className="noborder-ct" style={{position:'relative', textAlign:'center',boxSizing:'content-box',padding:'20px',border:"2px solid "+props.border}}> {props.children}</div>)
   }
 
-  function FormField(props){
-    return (<FormControl style={{left: "0px", padding: 0}}>
-      <FormHelperText>{props.label}</FormHelperText>
-      <TextField id="filled-basic" helperText={props.helperText} InputProps={{ style: { fontSize: "10px"} }} size="small" variant="filled"  style={{borderLeft:"20px solid "+props.border, padding: 0,background:'white',borderRadius:"10px",boxSizing: "border-box"}} type={props.controlType} onChange={(e)=>{props.update(e.target.value)}} value={props.value}></TextField>
-    </FormControl>
-    )
-  }
 
   const [error_message,setError_message] = useState(null)
 
@@ -43,9 +36,8 @@ function Signup(props){
       "type":"formControl",
       "required":true,
       "controlType":"email",
-      "label":"email",
+      "label":"Email",
       "helperText":"please enter your email",
-      "JSXElement":FormField,
       "validator": (val, obs, core) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (val.match(regex)) {
@@ -61,7 +53,6 @@ function Signup(props){
       "controlType":"password",
       "label":"Password",
       "helperText":"please enteryour password",
-      "JSXElement":FormField,
       "validator": (val,obs,core)=>{
         if (val.length >0){
           obs.next(true);
@@ -74,9 +65,8 @@ function Signup(props){
       "type":"formControl",
       "required":true,
       "controlType":"password",
-      "label":"passwordCheck",
+      "label":"Retype Password ",
       "helperText":"please enteryour password",
-      "JSXElement":FormField,
       "validator": (val, obs, core) => {
       if (core.parent.refrences.password.current){
           if (val === core.parent.refrences.password.current.props.value) {
@@ -129,10 +119,12 @@ return (
   <div className="signup">
      {error_message?<Box sx={{ flexGrow: 1 }} className="error_message">{error_message}</Box>:null}
   <div className="background-image"  style={{ "backgroundImage": "url(/images/main_photo.jpg)"}}>
-    <div className="blackness">
-        <div className="login-wrapper">
-        <FormGroup controls={fgroup} name="login"  ref={ref}  JSXContainer={FormContainer}></FormGroup>
-        <div className="btn-wrapper"><Button className="login-btn" onClick={Submit} variant="contained" type="submit">Submit</Button></div>
+    <div className="alignment">
+        <div className="wrapper">
+          <div style={{ "backdrop-filter": "blur(5px)", width: "500px",height: "auto"}}>
+        <FormGroup controls={fgroup} name="signup"  ref={ref}  JSXContainer={FormContainer}></FormGroup>
+        <div className="btn-wrapper"><Button onClick={Submit} variant="contained" type="submit">Submit</Button></div>
+        </div>
         </div>
     </div>
     </div>

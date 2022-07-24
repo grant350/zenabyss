@@ -10,23 +10,26 @@ const About = function (props){
   var path = "/images/Resume.pdf"
   var ww= window.innerWidth
 
-  const [url, setURL] = useState(path+"#zoom=100")
+  const [url, setURL] = useState(path+"#zoom=100#toolbar=1")
 
     var checkWidth = (window_width)=>{
-      if (window_width <= 550){
-        setURL(path+"#zoom=50")
+      if (window_width <= 350){
+        setURL(path+"#zoom=30#toolbar=1")
+      }
+      if (window_width <= 550 && window_width > 350){
+        setURL(path+"#zoom=45#toolbar=1")
       }
       if (window_width <= 700 && window_width > 550){
-        setURL(path+"#zoom=60")
+        setURL(path+"#zoom=60#toolbar=1")
       }
       if ( window_width > 700 && window_width <= 900){
-        setURL(path+"#zoom=70")
+        setURL(path+"#zoom=70#toolbar=1")
       }
       if (window_width > 900 && window_width < 1200){
-        setURL(path+"#zoom=80")
+        setURL(path+"#zoom=80#toolbar=1")
       }
       if (window_width > 1200){
-        setURL(path+"#zoom=100")
+        setURL(path+"#zoom=100#toolbar=1")
       }
     }
 
@@ -38,9 +41,7 @@ const About = function (props){
         var window_width = e.target.innerWidth
         checkWidth(window_width)
       }
-      console.log('path',path)
       window.addEventListener('resize',handler);
-      console.log('path',path)
 
       return () => window.removeEventListener('resize', handler);
     });
