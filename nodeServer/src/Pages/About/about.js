@@ -3,7 +3,7 @@ import './about.scss';
 import BackgroundTop from './BackgroundTop';
 import ProfileImage from './ProfileImage'
 import ProfileDescription from './ProfileDescription'
-import '../../global.scss';
+// import '../../global.scss';
 import Frame from './frame'
 
 const About = function (props){

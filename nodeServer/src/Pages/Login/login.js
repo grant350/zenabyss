@@ -3,7 +3,7 @@ import {useNavigate,Link} from "react-router-dom";
 import {FormGroup} from '@zenabyss/reactformbuilder';
 import './login.scss';
 import axios from 'axios';
-import {createCookie,deleteCookie} from '../../cookie';
+import {createCookie,deleteCookie} from '../../utility_functions/cookie';
 import {Button,Box} from '@mui/material'
 
 function Login(props){

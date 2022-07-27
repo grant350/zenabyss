@@ -2,7 +2,7 @@
 import {React,useEffect} from 'react'
 import {useLocation ,Navigate} from "react-router-dom";
 import {UseAuth} from './authentication';
-import Settings from './settings/settings.js';
+import Settings from '../app_settings/settings.js';
 
 
 function RequireAuth(props) {

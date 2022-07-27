@@ -1,10 +1,10 @@
-import './App.scss';
+import '../../../../App.scss';
 import React from 'react';
 import {Box,FormControlLabel,FormLabel,Radio,FormControl,RadioGroup,TextField,Button} from  '@mui/material';
 import axios from 'axios';
-import AddSub from './addsub'
-import {getCookie} from './cookie';
-
+import AddSub from '../../../../utility_components/addsub'
+import {getCookie} from '../../../../utility_functions/cookie';
+import './product.scss'
 class InsertForm extends React.Component{
   constructor(props){
     super(props)
@@ -61,7 +61,6 @@ class InsertForm extends React.Component{
 
 
    onImageChange = e => {
-     //lets check our mongo schema and start fresh with no data and add a product.
      const file = (e.target).files[0]
      if (file){
      const reader = new FileReader();
@@ -88,20 +87,11 @@ class InsertForm extends React.Component{
       },10000)
     }
 
+   // replace and find with {7877:"maybelline", 7874: "covergirl"}
+   //begins with upc
     pullFromUPC(e){
       if (this.state.upc.length === 12){
-        if (this.state.upc.slice(0,4).includes('0712')){
-          this.setState({brand:'Loreal'})
-        } else if (this.state.upc.slice(0,4).includes('8008')){
-          this.setState({brand:'NYX'})
-        } else if (this.state.upc.slice(0,4).includes('0227') || this.state.upc.slice(0,4).includes('7877') || this.state.upc.slice(0,4).includes('0462') ){
-          this.setState({brand:'Covergirl'})
-        } else if (this.state.upc.slice(0,4).includes('0415') || this.state.upc.slice(0,4).includes('7874')){
-          this.setState({brand:'Maybelline'})
-        }
-        else if (this.state.upc.slice(0,4).includes('0778') ){
-          this.setState({brand:'wet-n-wild'})
-        }
+
         axios.get('/searchProducts',{params:{query:this.state.upc,user_id:getCookie('user_id')},headers:{Authorization:"Bearer "+getCookie('user_session')} }).then(response=>{
 
         if (response.data === 'updated'){
@@ -209,19 +199,16 @@ class InsertForm extends React.Component{
   };
 
   handleDecrement ()  {
-
     var val = this.state.quantity-1;
     if (val < 0){
      val =0;
     }
-
       this.setState({quantity:val})
   };
 
   //gonna clean up some code here.
    render(){
-
-    return (<Box   className="insertBox" sx={{width: 600, height: "auto", backgroundColor: 'primary.dark'}} >
+    return (<Box   className="insertBox" sx={{ height: "auto", backgroundColor:'transparent'}} >
     <div className="wrapper" style={{"display":"block","width":"100%"}}><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"upc")}} value={this.state.upc} label="UPC" variant="outlined" /></div>
     <div className="wrapper" ><TextField  id="outlined-basic" onChange={(e)=>{this.inputChange(e.target.value,"title")}} value={this.state.title}  label="title" variant="outlined" /></div>
 
@@ -232,7 +219,7 @@ class InsertForm extends React.Component{
     <div className="wrapper"><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"brand")}} label="BRAND" variant="outlined" value={this.state.brand}  /></div>
     <div className="wrapper" ><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"model")}} label="MODEL" variant="outlined" value={this.state.model}  /></div>
 
-    <AddSub handleDecrement={this.handleDecrement} handleIncrement={this.handleIncrement} changeQTY={this.changeQTY} qty={this.state.quantity} />
+    <AddSub className="addsub" handleDecrement={this.handleDecrement} handleIncrement={this.handleIncrement} changeQTY={this.changeQTY} qty={this.state.quantity} />
 
     <div className="wrapper" ><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"retail_price")}} label="RetailPrice" value={this.state.retail_price} variant="outlined" /></div>
     <div className="wrapper" ><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"product_cost")}} label="ProductCost"  value={this.state.product_cost} variant="outlined" /></div>

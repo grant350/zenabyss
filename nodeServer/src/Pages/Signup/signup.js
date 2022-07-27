@@ -4,7 +4,7 @@ import {FormGroup} from '@zenabyss/reactformbuilder';
 import {Button,Box} from '@mui/material'
 import './signup.scss';
 import axios from 'axios';
-import {createCookie,deleteCookie} from '../../cookie';
+import {createCookie,deleteCookie} from '../../utility_functions/cookie';
 function Signup(props){
 
   let navigate = useNavigate()

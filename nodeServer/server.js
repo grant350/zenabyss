@@ -12,20 +12,32 @@ var schemas = require('./mongo.schema');
 var jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const User_Session = mongoose.model('User_Sessions', schemas.User_Session);
+const {
+  v4: uuidv4
+} = require('uuid');
 
 
-function ImageMiddleware(req,res,next){
-  if (req.body.image){
-    if (req.body.image.image_structure){
-      var filename = req.body.image.image_structure.filename.replaceAll(' ','_')
-      var imagepath = '/images/'+filename;
+// grab settings and decide if authorization is needed
+// each route will have settings to decide if it should be blocked or not
+// request limiter can be added also
+
+function ImageMiddleware(req, res, next) {
+  // make this more functional
+  if (req.body.image) {
+    if (req.body.foldername) {
+      //later add folders to make it go to diffrent locations
+    }
+    if (req.body.image.image_structure) {
+      var filename = req.body.image.image_structure.filename.replaceAll(' ', '_')
+      var imagepath = '/product_images/' + uuidv4() + "_" + filename;
 
       function filterData(data) {
         var base64pure = data.split(',')[1];
         let buff = Buffer.from(base64pure, 'base64');
         return buff
       }
-      fs.writeFileSync(path.join(__dirname,'public/images/'+filename),filterData(req.body.image['64bit']))
+
+      fs.writeFileSync(path.join(__dirname, 'public/product_images/' + uuidv4() + "_" + filename), filterData(req.body.image['64bit']))
       req.body.image = imagepath;
       next()
     } else {
@@ -38,128 +50,136 @@ function ImageMiddleware(req,res,next){
   }
 }
 
-var Authorize_Session = (req,res,next)=>{
+var Authorize_Session = (req, res, next) => {
 
-     const authHeader = req.headers.authorization;
-     var token = null
-     try {
-      token = authHeader.split(' ')[1];
-     } catch {
-      token = null
-     }
-     req.user_id = req.query.user_id;
-      if (req.query.user_id !== undefined && token !== null){
-         User_Session.find({user_id: req.query.user_id }).then(session=>{
-           console.log(session)
-try{
-          req.jwtData = jwt.verify(token, session[0].salt);
-          if (req.jwtData){
-            if (session.length >0){
-              var date =   Math.floor(Date.now());
-              var expirationDate =  new Date(session[0].expiration);
-              expirationDate=expirationDate.getTime
-              if (date > expirationDate){
-                req.authorized = {redirect:'/login',authorized:false}
-              } else {
-                req.authorized = {authorized:true,redirect:'/'}
+  const authHeader = req.headers.authorization;
+  var token = null
+  try {
+    token = authHeader.split(' ')[1];
+  } catch {
+    token = null
+  }
+  req.user_id = req.query.user_id;
+  if (req.query.user_id !== undefined && token !== null) {
+    User_Session.find({
+      user_id: req.query.user_id
+    }).then(session => {
+      console.log(session)
+      try {
+        req.jwtData = jwt.verify(token, session[0].salt);
+        if (req.jwtData) {
+          if (session.length > 0) {
+            var date = Math.floor(Date.now());
+            var expirationDate = new Date(session[0].expiration);
+            expirationDate = expirationDate.getTime
+            if (date > expirationDate) {
+              req.authorized = {
+                redirect: '/login',
+                authorized: false
+              }
+            } else {
+              req.authorized = {
+                authorized: true,
+                redirect: '/'
               }
             }
-          } else {
-            req.authorized = {redirect:'/login',authorized:false}
           }
-        } catch {
-          req.authorized = {redirect:'/login',authorized:false}
+        } else {
+          req.authorized = {
+            redirect: '/login',
+            authorized: false
+          }
         }
-          next()
-
-         })
-      } else {
-        req.authorized = {authorized:false,redirect:'/login'}
-        next()
+      } catch {
+        req.authorized = {
+          redirect: '/login',
+          authorized: false
+        }
       }
+      next()
 
-
+    })
+  } else {
+    req.authorized = {
+      authorized: false,
+      redirect: '/login'
+    }
+    next()
+  }
 
 }
 
-app.use(bp.json({ limit: "50mb" }));
+app.use(bp.json({
+  limit: "50mb"
+}));
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
-
-app.get('/images/*',function(req,res){
-  console.log(path.join(__dirname, 'build'+req.path))
-  res.sendFile(path.join(__dirname, 'build'+req.path));
-})
-
+// app.get('/images/*',function(req,res){
+//   res.sendFile(path.join(__dirname, 'build'+req.path));
+// })
 app.use(ImageMiddleware)
 app.set('view engine', 'pug')
 app.use(Authorize_Session)
 
-
-
-app.post('/emailserver', (req,res,next)=>{
-  router.contact(req,res,next)
+app.post('/emailserver', (req, res, next) => {
+  router.contact(req, res, next)
 })
 
-app.get('/contact', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
+app.get('/contact', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
 
-app.get('/authenticate', (req,res,next)=>{
+app.get('/authenticate', (req, res, next) => {
   res.json(req.authorized)
 })
 
 
-app.post('/login', (req,res,next)=>{
-  router.login(req,res,next)
+app.post('/login', (req, res, next) => {
+  router.login(req, res, next)
 })
 //static routes
-app.get('/about', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
+app.get('/about', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
 
-app.get('/insert/order', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
+app.get('/insert/order', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
-app.get('/insert/product', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
+app.get('/insert/product', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
-app.get('/login', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
+app.get('/login', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
-app.get('/signup', (req,res,next)=>{
-  res.sendFile(path.join(__dirname, 'build/index.html') );
-})
-
-app.get('/profile', (req,res,next)=>{
-  router.getProfileHTML(req,res,next)
+app.get('/signup', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'build/index.html'));
 })
 
-
-app.post('/createUser', (req,res,next)=>{
-  router.createUser(req,res,next)
+app.get('/profile', (req, res, next) => {
+  router.getProfileHTML(req, res, next)
 })
 
-app.post('/insertProduct', (req,res,next)=>{
-  router.insertProduct(req,res,next)
+
+app.post('/createUser', (req, res, next) => {
+  router.createUser(req, res, next)
 })
 
-app.post('/insertOrder', (req,res,next)=>{
-  router.insertOrder(req,res,next)
-})
-app.get('/searchProducts', (req,res,next)=>{
-
-  router.searchProducts(req,res,next)
+app.post('/insertProduct', (req, res, next) => {
+  router.insertProduct(req, res, next)
 })
 
-app.get('*',function(req,res){
-  console.log(req.path)
-  // res.sendFile(req.path);
+app.post('/insertOrder', (req, res, next) => {
+  router.insertOrder(req, res, next)
+})
+app.get('/searchProducts', (req, res, next) => {
+  router.searchProducts(req, res, next)
+})
 
-    res.status(404).render('404');
+app.get('*', function (req, res) {
+  res.status(404).render('404');
 });
 
-app.listen(port,function(){
-  console.log('listening on ',port);
+app.listen(port, function () {
+  console.log('listening on ', port);
 });
-

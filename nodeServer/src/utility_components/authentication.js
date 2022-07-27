@@ -1,6 +1,6 @@
 import {useState,useContext, useEffect,createContext,React} from 'react';
 import axios from 'axios';
-import {getCookie,deleteCookie,createCookie} from './cookie'
+import {getCookie,deleteCookie,createCookie} from '../utility_functions/cookie'
 const AuthContext = createContext(null);
 
 const AuthProvider = (props)=>{

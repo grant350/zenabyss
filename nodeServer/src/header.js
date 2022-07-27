@@ -3,12 +3,11 @@ import React from 'react';
 import {AppBar,Toolbar,Typography,IconButton,Tabs,Tab,Paper,MenuItem,MenuList,Stack } from '@mui/material';
 import {useState} from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
-import {deleteCookie} from './cookie'
-import {UseAuth} from './authentication';
+import {deleteCookie} from './utility_functions/cookie'
+import {UseAuth} from './utility_components/authentication';
 import { useNavigate } from "react-router-dom";
-import './global.scss';
 
-import Settings from './settings/settings.js';
+import Settings from './app_settings/settings.js';
 var routeObject =Settings.getRoutes();
 
 var DropDownMenu = function(props){
@@ -85,7 +84,7 @@ var Header = function(props){
   }
 
   return (
-      <AppBar style={{backgroundColor:props.header_color}} position="static">
+      <AppBar className="top_header" style={{backgroundColor:props.header_color}} position="static">
         <Toolbar variant="dense">
           {/* #d1b58f!important */}
           <div className="hamburger">

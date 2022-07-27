@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import Selector from './selectorComponent'
 import axios from 'axios'
-import {getCookie} from './cookie'
+import {getCookie} from '../../../../utility_functions/cookie'
 
 class OrderForm extends React.Component {
     constructor(props) {

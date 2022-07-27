@@ -1,6 +1,6 @@
 import React from 'react';
 import {Avatar} from '@mui/material'
-import '../../global.scss';
+// import '../../global.scss';
 
 const ProfileImage = function (props){
 return (

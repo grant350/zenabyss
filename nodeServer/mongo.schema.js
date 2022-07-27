@@ -2,10 +2,15 @@
 
 const mongoose = require('mongoose');
 require('dotenv').config()
-mongoose.connect(`mongodb://grant:${process.env.password}@ec2-3-80-154-255.compute-1.amazonaws.com:27017/zenabyss`);
+// mongoose.connect(`mongodb://grant:${process.env.password}@ec2-3-80-154-255.compute-1.amazonaws.com:27017/zenabyss`);
+mongoose.connect(`mongodb://grant:${process.env.password}@localhost:27017/zenabyss`);
 
 const { Schema } = mongoose;
-//dimensions in cm
+
+//login to send email to validate correct email * future
+// client to display username
+// dashboard page with sidebar of all the other pages [how to use page, edit product page with delete, search icon corner drop down]
+//
 
 
 const User = new Schema({

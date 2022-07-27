@@ -1,0 +1,22 @@
+.dashboard{
+background-color: white;
+.MuiDrawer-paperAnchorDockedLeft{
+  top:auto!important;
+  // width: 20%!important;
+}
+.MuiAppBar-root{
+  position: absolute!important;
+}
+.MuiSvgIcon-root{
+  font-size: 2rem!important;
+  fill: #d1b58f!important;
+}
+.MuiPaper-root{
+  background-color: transparent;
+  top:auto!important;
+
+  // width: 50%!important;
+  display:block!important;
+  // background-color: transparent;
+}
+}
