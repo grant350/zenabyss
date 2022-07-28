@@ -214,7 +214,7 @@ class OrderForm extends React.Component {
         sx = {
           {
             width: '50%',
-            backgroundColor: 'primary.dark'
+            backgroundColor: 'white'
           }
         } > < FormGroup ref = {
           this.myRef

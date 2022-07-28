@@ -1,11 +1,11 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 
 import {AppBar,Toolbar,Typography,IconButton,Tabs,Tab,Paper,MenuItem,MenuList,Stack } from '@mui/material';
 import {useState} from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import {deleteCookie} from './utility_functions/cookie'
 import {UseAuth} from './utility_components/authentication';
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useLocation} from "react-router-dom";
 
 import Settings from './app_settings/settings.js';
 var routeObject =Settings.getRoutes();
@@ -31,8 +31,11 @@ var DropDownMenu = function(props){
           {Object.keys(routeObject).map(key=>{
             var r = routeObject[key]
             r.label[0].toUpperCase();
-            if (r.name !== "login"){
-              return <MenuItem onClick={(e)=>{nav(r.path)}}>{r.label}</MenuItem>
+            if (key !== "login"){
+              if (r.redirect){
+                r.path = r.redirect;
+              }
+              return <MenuItem key={key} onClick={(e)=>{nav(r.path)}}>{r.label}</MenuItem>
             } else {
               return null
             }
@@ -50,23 +53,31 @@ var DropDownMenu = function(props){
 
 
 var Header = function(props){
+  var location = useLocation();
+  var pageload_component = "home"
+  var pageload_color = "#d1b58f"
+
+  {Object.keys(routeObject).forEach((key,index)=>{
+    var route = routeObject[key]
+        if (location.pathname.includes(route.path)){
+          pageload_component = key
+        }
+    })}
+    if (pageload_component === "home"){
+      pageload_color = "transparent";
+    } else {
+      pageload_color = "#d1b58f";
+    }
+  var [component,setComponent] = useState(pageload_component)
 
   let auth = UseAuth();
   let navigate = useNavigate();
   let [navOpen,setNav] = useState(false);
+  let [header_color,setHeader_color] = useState(pageload_color);
 
-  var handle_route_change = (e, newValue)=> {
-    Object.keys(routeObject).forEach((key,index)=>{
-      var r = routeObject[key]
-      var name = key
-      if (name === newValue){
-        navigate(r.path,{ replace: true });
-      }
-    })
-  };
+
 
   var  logout = ()=>{
-    console.log('logout clicked')
     deleteCookie('user_session')
     deleteCookie('user_id')
     auth.setLoggedin(false)
@@ -74,6 +85,10 @@ var Header = function(props){
     navigate('/')
   }
 
+ var changeTab = (path,value)=>{
+  setComponent(value)
+  navigate(path,{ replace: true });
+ }
 
   function toggelNav(bool){
     if (bool !== undefined){
@@ -84,7 +99,7 @@ var Header = function(props){
   }
 
   return (
-      <AppBar className="top_header" style={{backgroundColor:props.header_color}} position="static">
+      <AppBar className="top_header" style={{backgroundColor:header_color}} position="static">
         <Toolbar variant="dense">
           {/* #d1b58f!important */}
           <div className="hamburger">
@@ -97,13 +112,15 @@ var Header = function(props){
             Zenabyss
           </Typography>
           <div className="tab-ct">
-        <Tabs  value={props.component ?? false} onChange={handle_route_change}>
+        <Tabs  value={component ?? false} onChange={(e)=>{console.log("does nothing")}}>
 
           {Object.keys(routeObject).map((key,index)=>{
             var r = routeObject[key]
-            var name = key
               if (r.makeTab){
-                return  <Tab className="hovertab" key={index} label={r.label} value={name}  />
+                if (r.redirect){
+                  r.path = r.redirect;
+                }
+                return  <Tab onClick={(e)=>{changeTab(r.path,key) }} className="hovertab" key={index} label={r.label} value={key}  />
               } else {
                 return null
               }

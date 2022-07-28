@@ -1,4 +1,35 @@
+.catagory_overlay{
+  position:absolute;
+  top:50%;
+  text-align: center;
+  width:100%;
+  z-index: +2;
+  color:white;
+  font-weight: 700;
+  font-size:20px;
+
+}
+.MuiImageListItem-root{
+  cursor:grab;
+
+.cover_overlay{
+width: 100%;
+height: 100%;
+background: #493e3e91;
+position: absolute;
+z-index: +1;
+}
+img{
+filter: blur(2px);
+}
+}
 .dashboard{
+
+  position:relative!important;
+  z-index: 2!important;
+
+
+
 background-color: white;
 .MuiDrawer-paperAnchorDockedLeft{
   top:auto!important;
@@ -12,7 +43,7 @@ background-color: white;
   fill: #d1b58f!important;
 }
 .MuiPaper-root{
-  background-color: transparent;
+  background-color: white;
   top:auto!important;
 
   // width: 50%!important;

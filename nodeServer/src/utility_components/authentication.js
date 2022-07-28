@@ -4,7 +4,7 @@ import {getCookie,deleteCookie,createCookie} from '../utility_functions/cookie'
 const AuthContext = createContext(null);
 
 const AuthProvider = (props)=>{
-const [isLoggedin, setLoggedin] = useState(false);
+const [role, setLoggedin] = useState(false);
 
 useEffect(()=>{
   axios.get('/authenticate',{params:{user_id:getCookie('user_id')}, headers:{ Authorization:'Bearer '+getCookie('user_session')}}).then(response=>{
@@ -14,6 +14,7 @@ useEffect(()=>{
       createCookie('user_session',response.data.token,2);
     }
     if (response.data.authorized){
+      //response.data.role later
       setLoggedin(true);
     } else {
       deleteCookie('user_session');
@@ -24,7 +25,7 @@ useEffect(()=>{
 })
 
 return (
-  <AuthContext.Provider isLoggedin={isLoggedin} setLoggedin={setLoggedin} value={{isLoggedin:isLoggedin,setLoggedin:setLoggedin}}>
+  <AuthContext.Provider isLoggedin={role} value={{isLoggedin:role,setLoggedin:setLoggedin}}>
     {props.children}
   </AuthContext.Provider>
   )
@@ -35,3 +36,6 @@ var UseAuth = ()=>{
 }
 export  {AuthProvider, UseAuth};
 
+//make catagories for dashboard
+// when user is seller then give acess to dashboard on client, rn its set to all
+// display user name on client with local storage and delete local storage on log out or when cookeie is not active

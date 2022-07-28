@@ -14,11 +14,11 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import Settings from '../../app_settings/settings'
 import './dashboard.scss'
 import {useNavigate} from "react-router-dom";
-
+import Catagories from './dashboard_catagories'
 const drawerWidth = 240;
-
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -76,7 +76,7 @@ function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  var sub_routes = Settings.getSubRoutes("dashboard")
   return (
 
     <Box className="dashboard" sx={{ display: 'flex' }}>
@@ -114,40 +114,29 @@ function Dashboard(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          {/* change map
-                    <Button onClick={(e)=>{ navigate('/dashboard/add_product')}}>Im going to add product page</Button>
 
-          */}
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem  onClick={(e)=>{ navigate('/dashboard/add_product')}} key={text} disablePadding>
+
+
+          {Object.keys(sub_routes).map((key, index) => {
+            var obj = sub_routes[key];
+            console.log(obj);
+         return (   <ListItem  onClick={(e)=>{ navigate('/dashboard/'+obj.path)}} key={key} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={obj.label} />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+         )
+})}
         </List>
       </Drawer>
       <Main className="content" open={open}>
         <DrawerHeader />
 
         <div className="dashboard-page">
-            { props.component !== null? props.component:null}
+
         </div>
       </Main>
     </Box>
