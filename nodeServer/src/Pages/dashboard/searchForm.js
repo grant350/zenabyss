@@ -1,8 +1,8 @@
-import './App.scss';
+// import '../App.scss';
 import React from 'react';
 import {Box,List,ListItem,ListItemAvatar,Avatar,ListItemText,TextField,Typography} from  '@mui/material';
 import axios from 'axios';
-import {getCookie} from './cookie'
+import {getCookie} from '../../utility_functions/cookie'
 
 class SearchForm extends React.Component{
   constructor(props){
@@ -26,9 +26,9 @@ class SearchForm extends React.Component{
    render(){
 
     return (<Box  className="foundRelated" sx={{
-      width: "50%",
+      width: "100%",
       height: "auto",
-      backgroundColor: 'primary.dark',
+      backgroundColor: 'white',
       maxHeight: "800px",overflow: "scroll"
     }} >
     <div className="wrapper" style={{"display":"block","width":"100%"}}>

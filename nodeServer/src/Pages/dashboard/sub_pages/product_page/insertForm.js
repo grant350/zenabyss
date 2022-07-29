@@ -208,7 +208,9 @@ class InsertForm extends React.Component{
 
   //gonna clean up some code here.
    render(){
-    return (<Box   className="insertBox" sx={{ height: "auto", backgroundColor:'transparent'}} >
+    return (
+    <React.Fragment> <h1>Add product</h1>
+    <Box   className="insertBox" sx={{ height: "auto", backgroundColor:'transparent'}} >
     <div className="wrapper" style={{"display":"block","width":"100%"}}><TextField  id="outlined-basic"  onChange={(e)=>{this.inputChange(e.target.value,"upc")}} value={this.state.upc} label="UPC" variant="outlined" /></div>
     <div className="wrapper" ><TextField  id="outlined-basic" onChange={(e)=>{this.inputChange(e.target.value,"title")}} value={this.state.title}  label="title" variant="outlined" /></div>
 
@@ -241,7 +243,7 @@ class InsertForm extends React.Component{
       </FormControl>
         <div className="submit-container"><Button className=" btn" onClick={ (e)=>{this.submit(e)}}>SUBMIT</Button></div>
 
-    </Box>)
+    </Box></React.Fragment>)
 
    }
 

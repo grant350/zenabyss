@@ -1,33 +1,87 @@
-.catagory_overlay{
-  position:absolute;
-  top:50%;
-  text-align: center;
+
+.search_icon{
+  font-size: 2.5rem !important;
+}
+
+
+.search_dropdown{
   width:100%;
-  z-index: +2;
-  color:white;
-  font-weight: 700;
-  font-size:20px;
+  height:600px;
+  // background:orange;
+  position: absolute;
+  top:100%;
+  right:0px;
+}
 
-}
-.MuiImageListItem-root{
-  cursor:grab;
+.catagories{
+  display:grid;
+  width:95%;
+  margin:0 auto;
+  justify-items: center;
+  height:auto;
+  grid-template-columns: repeat(2,1fr);
+  // grid-template-rows: repeat(2,minmax(200px,800px));
+  grid-gap:20px;
+  //boxshadow
+  // background:orange;
+  grid-auto-flow: dense;
 
-.cover_overlay{
-width: 100%;
-height: 100%;
-background: #493e3e91;
-position: absolute;
-z-index: +1;
+  .grid-item{
+    width:45vw;
+    height:45vw;
+    max-height: 300px;
+    max-width:300px;
+    cursor: grab;
+    &:hover{
+      filter: brightness(0.7);
+    }
+    // background:orange;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
+    margin-bottom: 50px;
+    background:#9B4830;
+    .icon{
+      width:100%;
+      height:100%;
+      color:white;
+    }
+    span{
+      color:black;
+      text-align: center;
+      width: 100%;
+      display: block;
+    }
+  }
 }
-img{
-filter: blur(2px);
+
+@media (min-width: 500px){
+  .catagories{
+    grid-template-columns: repeat(2,1fr);
+  }
 }
+
+@media (min-width: 900px){
+  .catagories{
+    grid-template-columns: repeat(3,1fr);
+    .grid-item{
+      width: calc(100vw  / 4);
+      height: calc(100vw / 4);
+
+    }
+  }
 }
+
+
 .dashboard{
 
   position:relative!important;
   z-index: 2!important;
-
+  .MuiSvgIcon-root{
+    font-size: 2rem;
+    fill: #d1b58f!important;
+    &:hover{
+      filter: brightness(0.7);
+    }
+  }
 
 
 background-color: white;
@@ -38,10 +92,7 @@ background-color: white;
 .MuiAppBar-root{
   position: absolute!important;
 }
-.MuiSvgIcon-root{
-  font-size: 2rem!important;
-  fill: #d1b58f!important;
-}
+
 .MuiPaper-root{
   background-color: white;
   top:auto!important;

@@ -6,7 +6,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 // import Toolbar from '@mui/material/Toolbar';
 // import List from '@mui/material/List';import ListItemIcon from '@mui/material/ListItemIcon';
-
+import CloseIcon from '@mui/icons-material/Close';
 import {List,Toolbar,CssBaseline,Drawer,Box,Divider,IconButton,ListItemButton,ListItem,ListItemIcon,ListItemText} from '@mui/material'
 import * as icons from  '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -18,6 +18,10 @@ import Settings from '../../app_settings/settings'
 import './dashboard.scss'
 import {useNavigate} from "react-router-dom";
 import Catagories from './dashboard_catagories'
+// import AnalyticsIcon from '@mui/icons-material/Analytics';
+import PageviewIcon from '@mui/icons-material/Pageview';
+import SearchForm from './searchForm';
+
 const drawerWidth = 240;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -67,6 +71,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function Dashboard(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [search_dropdown_open, setSearch_dropdown_open] = React.useState(false);
+
   let navigate = useNavigate()
 
   const handleDrawerOpen = () => {
@@ -77,12 +83,14 @@ function Dashboard(props) {
     setOpen(false);
   };
   var sub_routes = Settings.getSubRoutes("dashboard")
+
   return (
 
     <Box className="dashboard" sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{position:"relative"}}>
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -92,6 +100,10 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
+          {search_dropdown_open? <CloseIcon  sx={{position: "absolute",right:"30px",cursor:"grab"}} onClick={(e)=>{setSearch_dropdown_open(!search_dropdown_open)}}></CloseIcon>:<PageviewIcon sx={{position: "absolute",right:"30px",cursor:"grab"}} onClick={(e)=>{setSearch_dropdown_open(!search_dropdown_open)}} className="search_icon" />}
+          {search_dropdown_open?  <Box className="search_dropdown"><SearchForm></SearchForm></Box>:null }
+
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -119,11 +131,10 @@ function Dashboard(props) {
 
           {Object.keys(sub_routes).map((key, index) => {
             var obj = sub_routes[key];
-            console.log(obj);
          return (   <ListItem  onClick={(e)=>{ navigate('/dashboard/'+obj.path)}} key={key} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {obj.icon? < obj.icon /> : null}
                 </ListItemIcon>
                 <ListItemText primary={obj.label} />
               </ListItemButton>

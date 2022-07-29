@@ -8,6 +8,12 @@ import Dashboard from '../Pages/dashboard/dashboard'
 import HomePage from '../Pages/HomePage/homepage';
 import Catagories from '../Pages/dashboard/dashboard_catagories'
 
+//icons
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import CreateIcon from '@mui/icons-material/Create';
+
+//icons
+import DashboardIcon from '@mui/icons-material/Dashboard';
 // dashboard component
 //tab bar routes
 // "normal": {"path":'/', "makeTab":true, "label":"home","accessibleTo":["all"],"component":<Normal_route_component/>},
@@ -25,9 +31,9 @@ var routeObject = {
   "accessibleTo":["all"],
   "component":<Dashboard/>,
   "routes": {
-    "console": {"path":'console', "label":"console", "accessibleTo":["all"],"component": <Catagories /> } ,
-     "product": {"path":'add_product', "label":"upload product", "accessibleTo":["all"],"component": <InsertForm /> } ,
-     "order": {"path":'add_order', "label":"create order", "accessibleTo":["all"],"component":<OrderForm/>}
+    "console": {"path":'console', "icon":DashboardIcon, "label":"console", "accessibleTo":["all"],"component": <Catagories /> } ,
+     "product": {"path":'add_product',"icon":NoteAddIcon, "label":"upload product", "accessibleTo":["all"],"component": <InsertForm /> } ,
+     "order": {"path":'add_order', "icon":CreateIcon, "label":"create order", "accessibleTo":["all"],"component":<OrderForm/>}
    }
   }
 }
